@@ -347,36 +347,38 @@
                             @endcan
                         </div>
                         @can('verify', $document)
-                            <div class="tab-pane" id="tab_verification">
-                                @if ($document->status!=config('constants.STATUS.APPROVED'))
-                                    {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post']) !!}
-                                    <div class="form-group text-center">
-                                    <textarea class="form-control" name="vcomment" id="vcomment" rows="4"
-                                              placeholder="Enter Comment to verify with comment(optional)"></textarea>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <button class="btn btn-success" type="submit" name="action" value="approve"><i
-                                                class="fa fa-check"></i> Approve
-                                        </button>
-                                        <button class="btn btn-danger" type="submit" name="action" value="reject"><i
-                                                class="fa fa-close"></i> Reject
-                                        </button>
-                                    </div>
-                                    {!! Form::close() !!}
-                                @else
-                                    <div class="form-group">
-                                        <span class="label label-success">Verified</span>
-                                    </div>
-                                    <div class="form-group">
-                                        Verifier: <b>{{$document->verifiedBy->name}}</b>
-                                    </div>
-                                    <div class="form-gorup">
-                                        Verified At: <b>{{formatDateTime($document->verified_at)}}</b>
-                                        ({{\Carbon\Carbon::parse($document->verified_at)->diffForHumans()}})
-                                    </div>
+                        <div class="tab-pane" id="tab_verification">
+                            {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post']) !!}
+                            <div class="form-group text-center">
+                                <textarea class="form-control" name="vcomment" id="vcomment" rows="4"
+                                        placeholder="Enter Comment to verify with comment(optional)"></textarea>
+                            </div>
+                            <div class="form-group text-center">
+                                <button class="btn btn-success" type="submit" name="action" value="approve"><i
+                                        class="fa fa-check"></i> Approve</button>
+                                <button class="btn btn-danger" type="submit" name="action" value="reject"><i
+                                        class="fa fa-close"></i> Reject</button>
+                            </div>
+                            {!! Form::close() !!}
+                            <div class="form-group">
+                                @if ($document->status == config('constants.STATUS.APPROVED'))
+                                    <span class="label label-success">Verified</span>
                                 @endif
                             </div>
+                            <div class="form-group">
+                                @if ($document->status == config('constants.STATUS.APPROVED'))
+                                    Verifier: <b>{{$document->verifiedBy->name}}</b>
+                                @endif
+                            </div>
+                            <div class="form-gorup">
+                                @if ($document->status == config('constants.STATUS.APPROVED'))
+                                    Verified At: <b>{{formatDateTime($document->verified_at)}}</b>
+                                    ({{\Carbon\Carbon::parse($document->verified_at)->diffForHumans()}})
+                                @endif
+                            </div>
+                        </div>
                         @endcan
+
                         <div class="tab-pane" id="tab_activity">
                             <ul class="timeline">
                                 <li class="time-label">

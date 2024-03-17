@@ -223,10 +223,17 @@ class DocumentController extends Controller
         $document = Document::findOrFail($id);
         $this->authorize('verify', $document);
         $action = $request->get('action');
-        $comment = $request->get('vcomment',"");
+        $comment = $request->get('vcomment', "");
+    
+        // Get the authenticated user's name
+        $userName = auth()->user()->name;
+    
         if (!empty($comment)) {
-            $comment = " with comment: <i>" . $comment . "</i>";
+            $comment = " by $userName: <i>" . $comment . "</i>";
+        } else {
+            $comment = " by $userName";
         }
+    
         $msg = "";
         if ($action == 'approve') {
             $this->documentRepository->approveDoc($document);
@@ -238,10 +245,10 @@ class DocumentController extends Controller
             abort(404);
         }
         $document->newActivity(ucfirst(config('settings.document_label_singular')) . " $msg $comment");
-
+    
         Flash::success(ucfirst(config('settings.document_label_singular')) . " $msg Successfully");
         return redirect()->back();
-    }
+    }    
 
     public function showUploadFilesUi($id)
     {
