@@ -51,12 +51,13 @@
             position: relative;
         }
 
-        .top-right {
+        .top-left {
             position: absolute;
-            right: 10px;
+            left: 10px;
             top: 18px;
             color: white; 
         }
+        
 
         .content {
             margin: auto; 
@@ -94,15 +95,10 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ route('admin.dashboard') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-            @endauth
+        <div class="top-left links">
+            <img src="../asset_img/logo-imus.png" alt="City Government of Imus" width="125px" height="50px">
+            <img src="../asset_img/logo-oni.png" alt="Ospital ng Imus" width="50px" height="50px">
         </div>
-    @endif
 
     <div class="content">
         <div class="title">
@@ -112,6 +108,17 @@
         <div class="subtext">
             Document Tracking System
         </div>
+        <br><br>
+
+        @if (Route::has('login'))
+        <div class="links">
+            @auth
+                <a href="{{ route('admin.dashboard') }}">Home</a>
+            @else
+                <a href="{{ route('login') }}">Login</a>
+            @endauth
+        </div>
+        @endif
 
         <div class="links">
             <!-- Additional links here if needed -->
