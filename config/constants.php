@@ -6,6 +6,8 @@ return [
         "BLOCK" => 'BLOCK',
         "REJECT" => 'REJECT',
         "APPROVED" => 'APPROVED',
+        "APPROVED AND FORWARDED" => 'APPROVED AND FORWARDED',
+        "RETURNED" => 'RETURNED',
     ],
     'GLOBAL_PERMISSIONS' => [ //permission is = permission=>label of permission
         'USERS' => [

@@ -215,6 +215,8 @@
                                 <span class="label label-warning">{{$document->status}}</span>
                             @elseif($document->status==config('constants.STATUS.APPROVED'))
                                 <span class="label label-success">{{$document->status}}</span>
+                                @elseif($document->status==config('constants.STATUS.APPROVED AND FORWARDED'))
+                                <span class="label label-success">{{$document->status}}</span>
                             @else
                                 <span class="label label-danger">{{$document->status}}</span>
                             @endif
@@ -354,10 +356,17 @@
                                         placeholder="Enter Comment to verify with comment(optional)"></textarea>
                             </div>
                             <div class="form-group text-center">
-                                <button class="btn btn-success" type="submit" name="action" value="approve"><i
-                                        class="fa fa-check"></i> Approve</button>
-                                <button class="btn btn-danger" type="submit" name="action" value="reject"><i
-                                        class="fa fa-close"></i> Reject</button>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                        <li><button class="dropdown-item" type="submit" name="action" value="approve"><i class="fa fa-check"></i> Approve</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="approvef"><i class="fa fa-forward"></i> Approve and Forward</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="return"><i class="fa fa-backward"></i> Return</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="reject"><i class="fa fa-close"></i> Reject</button></li>
+                                    </ul>
+                                </div>
                             </div>
                             {!! Form::close() !!}
                             <div class="form-group">

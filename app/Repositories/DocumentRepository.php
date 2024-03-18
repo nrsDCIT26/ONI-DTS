@@ -165,6 +165,20 @@ class DocumentRepository extends BaseRepository
         $document->save();
     }
 
+    public function approvedFDoc($document)
+    {
+        $document->verified_by = Auth::id();
+        $document->verified_at = now();
+        $document->status = config('constants.STATUS.APPROVED AND FORWARDED');
+        $document->save();
+    }
+
+    public function returnDoc($document)
+    {
+        $document->status = config('constants.STATUS.RETURNED');
+        $document->save();
+    }
+
     public function saveFilesWithDoc($filesData,$document)
     {
         $document->updated_at = now();

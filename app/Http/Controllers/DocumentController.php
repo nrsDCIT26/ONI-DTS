@@ -241,6 +241,12 @@ class DocumentController extends Controller
         } elseif ($action == 'reject') {
             $this->documentRepository->rejectDoc($document);
             $msg = "Rejected";
+        } elseif ($action == 'approvef') {
+            $this->documentRepository->approvedFDoc($document);
+            $msg = "Approved and Forwarded";
+        } elseif ($action == 'return') {
+            $this->documentRepository->returnDoc($document);
+            $msg = "Returned";
         } else {
             abort(404);
         }
