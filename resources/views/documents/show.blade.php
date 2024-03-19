@@ -42,6 +42,13 @@
             bottom: -4px;
             right: 10px;
         }
+        .dropdown-item{
+            border: none;
+            background-color: #fff;
+            padding: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
     </style>
 @stop
 @section('scripts')
@@ -355,14 +362,15 @@
                                 <textarea class="form-control" name="vcomment" id="vcomment" rows="4"
                                         placeholder="Enter Comment to verify with comment(optional)"></textarea>
                             </div>
-                            <div class="form-group text-center">
+                            <div class="form-group">
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Action
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                         <li><button class="dropdown-item" type="submit" name="action" value="approve"><i class="fa fa-check"></i> Approve</button></li>
-                                        <li><button class="dropdown-item" type="submit" name="action" value="approvef"><i class="fa fa-forward"></i> Approve and Forward</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="approvef"><i class="fa fa-forward" data-toggle="modal"
+                                                        data-target="#modal-permission"></i> Approve and Forward</button></li>
                                         <li><button class="dropdown-item" type="submit" name="action" value="return"><i class="fa fa-backward"></i> Return</button></li>
                                         <li><button class="dropdown-item" type="submit" name="action" value="reject"><i class="fa fa-close"></i> Reject</button></li>
                                     </ul>
