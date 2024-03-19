@@ -371,9 +371,9 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <select class="form-control" name="user_id" required>
-                                                            <option value="">- Select User -</option>
+                                                            <option value="">To:</option>
                                                             @foreach($users as $usr)
-                                                                <option value="{{$usr->id}}">{{$usr->name}}({{$usr->username}})</option>
+                                                                <option value="{{$usr->id}}">{{$usr->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
