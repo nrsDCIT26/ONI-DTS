@@ -391,7 +391,7 @@
                                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                                                 {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post']) !!}
                                                 <button type="submit" class="btn btn-primary" name="action" value="approvef">Submit</button>
-                                                {{!! Form::close() !!}}
+                                                {!! Form::close() !!}
                                             </div>
                                         </div>
                                     </div>
