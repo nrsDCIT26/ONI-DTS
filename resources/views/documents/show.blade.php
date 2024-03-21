@@ -357,65 +357,63 @@
                         </div>
                         @can('verify', $document)
                         <div class="tab-pane" id="tab_verification">
-                                <div class="modal fade" id="modal-forward">
-                                    {{ Form::open(['route' => ['documents.store-permission', request('document')]])}}
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <h4 class="modal-title">Forward</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <select class="form-control" name="user_id" required>
-                                                            <option value="">To:</option>
-                                                            @foreach($users as $usr)
-                                                                <option value="{{$usr->id}}">{{$usr->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    @foreach (config('constants.DOCUMENT_LEVEL_PERMISSIONS')  as $perm)
-                                                        <div class="col-sm-6" style="margin-top: 20px;">
-                                                            <label>
-                                                                <input name="document_permissions[{{$perm}}]" type="checkbox" class="iCheck-helper" value="1"> {{ucfirst($perm)}}
-                                                                this {{config('settings.document_label_singular')}}
-                                                            </label>
-                                                        </div>
-                                                    @endforeach
+                        {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post', 'id' => 'verificationForm']) !!}
+                            <div class="modal fade" id="modal-forward">
+                                {{ Form::open(['route' => ['documents.store-permission', request('document')], 'id' => 'permissionForm'])}}
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title">Forward</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-control" name="user_id" required>
+                                                        <option value="">To:</option>
+                                                        @foreach($users as $usr)
+                                                            <option value="{{$usr->id}}">{{$usr->name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                                {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post']) !!}
-                                                <button type="submit" class="btn btn-primary" name="action" value="approvef">Submit</button>
-                                                {!! Form::close() !!}
+                                                @foreach (config('constants.DOCUMENT_LEVEL_PERMISSIONS')  as $perm)
+                                                    <div class="col-sm-6" style="margin-top: 20px;">
+                                                        <label>
+                                                            <input name="document_permissions[{{$perm}}]" type="checkbox" class="iCheck-helper" value="1"> {{ucfirst($perm)}}
+                                                            this {{config('settings.document_label_singular')}}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" name="action" value="approvef" onclick="submitForms()">Submit</button>
+                                        </div>
                                     </div>
-                                    {{ Form::close() }}
+                                </div>
+                                {{ Form::close() }}
                             </div>
 
-                            {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post']) !!}
-                                <div class="form-group text-center">
-                                    <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder="Enter Comment to verify with comment(optional)"></textarea>
+                            <div class="form-group text-center">
+                                <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder="Enter Comment to verify with comment(optional)"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                        <li><button class="dropdown-item" type="submit" name="action" value="approve"><i class="fa fa-check"></i> Approve</button></li>
+                                        <li><button type="button" class="dropdown-item" onclick="showForwardForm()"><i class="fa fa-forward"></i> Approve and Forward </button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="return"><i class="fa fa-backward"></i> Return</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="reject"><i class="fa fa-close"></i> Reject</button></li>
+                                    </ul>
                                 </div>
-                                <div class="form-group">
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Action
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                            <li><button class="dropdown-item" type="submit" name="action" value="approve"><i class="fa fa-check"></i> Approve</button></li>
-                                            <li><button type="button" class="dropdown-item" onclick="showForwardForm()"><i class="fa fa-forward"></i> Approve and Forward </button></li>
-                                            <li><button class="dropdown-item" type="submit" name="action" value="return"><i class="fa fa-backward"></i> Return</button></li>
-                                            <li><button class="dropdown-item" type="submit" name="action" value="reject"><i class="fa fa-close"></i> Reject</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            {!! Form::close() !!}
+                            </div>
+                        {!! Form::close() !!}
                                         <div class="form-group">
                                             @if ($document->status == config('constants.STATUS.APPROVED'))
                                                 <span class="label label-success">Verified</span>
@@ -633,8 +631,13 @@
         </form>
     </div>
 <script>
+    function submitForms() {
+        document.getElementById('verificationForm').submit();
+        document.getElementById('permissionForm').submit();
+    }
+
     function showForwardForm() {
         $('#modal-forward').modal('show');
-            }
+    }
 </script>
 @endsection
