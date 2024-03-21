@@ -357,7 +357,6 @@
                         </div>
                         @can('verify', $document)
                         <div class="tab-pane" id="tab_verification">
-                        {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post', 'id' => 'verificationForm']) !!}
                             <div class="modal fade" id="modal-forward">
                                 {{ Form::open(['route' => ['documents.store-permission', request('document')], 'id' => 'permissionForm'])}}
                                 <div class="modal-dialog">
@@ -390,13 +389,14 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" name="action" value="approvef" onclick="submitForms()">Submit</button>
+                                            <button type="submit" class="btn btn-primary" name="action" value="approvef">Submit</button>
                                         </div>
                                     </div>
                                 </div>
                                 {{ Form::close() }}
                             </div>
-
+                            
+                            {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post', 'id' => 'verificationForm']) !!}
                             <div class="form-group text-center">
                                 <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder="Enter Comment to verify with comment(optional)"></textarea>
                             </div>
@@ -632,8 +632,8 @@
     </div>
 <script>
     function submitForms() {
-        document.getElementById('verificationForm').submit();
         document.getElementById('permissionForm').submit();
+        document.getElementById('verificationForm').submit();
     }
 
     function showForwardForm() {
