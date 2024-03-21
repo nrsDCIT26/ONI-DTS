@@ -389,7 +389,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" name="action" value="approvef">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -407,7 +407,7 @@
                                     </button>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                         <li><button class="dropdown-item" type="submit" name="action" value="approve"><i class="fa fa-check"></i> Approve</button></li>
-                                        <li><button type="button" class="dropdown-item" onclick="showForwardForm()"><i class="fa fa-forward"></i> Approve and Forward </button></li>
+                                        <li><button type="submit" class="dropdown-item" name="action" value="approvef" onclick="showForwardForm()"><i class="fa fa-forward"></i> Approve and Forward </button></li>
                                         <li><button class="dropdown-item" type="submit" name="action" value="return"><i class="fa fa-backward"></i> Return</button></li>
                                         <li><button class="dropdown-item" type="submit" name="action" value="reject"><i class="fa fa-close"></i> Reject</button></li>
                                     </ul>
