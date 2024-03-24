@@ -349,21 +349,28 @@ class DocumentController extends Controller
     
         $msg = "";
         if ($action == 'approve') {
+
             $this->documentRepository->approveDoc($document);
             $msg = "Approved";
+
         } elseif ($action == 'reject') {
+
             $this->documentRepository->rejectDoc($document);
             $msg = "Rejected";
+
         } elseif ($action == 'approvef') {
+
             $this->documentRepository->approvedFDoc($document);
             $selectedUserId = $request->get('user_id');
             $selectedUser = User::findOrFail($selectedUserId);
             $selectedUserName = $selectedUser->name;    
             $msg = "Forwarded to $selectedUserName";
-
+            
         } elseif ($action == 'return') {
+
             $this->documentRepository->returnDoc($document);
             $msg = "Returned";
+            
         } else {
             abort(404);
         }
