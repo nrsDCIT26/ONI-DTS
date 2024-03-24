@@ -326,6 +326,53 @@ class DocumentController extends Controller
         return $filesData;
     }
 
+    public function storePermissionAndVerify($id, Request $request)
+    {
+
+        abort_if(!auth()->user()->can('user manage permission'), 403, 'This action is unauthorized .');
+        $input = $request->all();
+        $user = User::findOrFail($input['user_id']);
+        $doc_permissions = $input['document_permissions'];
+        $document = Document::findOrFail($id);
+        $this->permissionRepository->setDocumentLevelPermissionForUser($user, $document, $doc_permissions);
+        
+        $action = $request->get('action');
+        $comment = $request->get('vcomment', "");
+    
+        $userName = auth()->user()->name;
+    
+        if (!empty($comment)) {
+            $comment = " by $userName: <i>" . $comment . "</i>";
+        } else {
+            $comment = " by $userName";
+        }
+    
+        $msg = "";
+        if ($action == 'approve') {
+            $this->documentRepository->approveDoc($document);
+            $msg = "Approved";
+        } elseif ($action == 'reject') {
+            $this->documentRepository->rejectDoc($document);
+            $msg = "Rejected";
+        } elseif ($action == 'approvef') {
+            $this->documentRepository->approvedFDoc($document);
+            $selectedUserId = $request->get('user_id');
+            $selectedUser = User::findOrFail($selectedUserId);
+            $selectedUserName = $selectedUser->name;    
+            $msg = "Forwarded to $selectedUserName";
+
+        } elseif ($action == 'return') {
+            $this->documentRepository->returnDoc($document);
+            $msg = "Returned";
+        } else {
+            abort(404);
+        }
+        $document->newActivity(ucfirst(config('settings.document_label_singular')) . " $msg $comment");
+    
+        Flash::success(ucfirst(config('settings.document_label_singular')) . " $msg Successfully");
+        return redirect()->back();
+    }
+    
     public function deleteFile($id)
     {
         $file = File::findOrFail($id);

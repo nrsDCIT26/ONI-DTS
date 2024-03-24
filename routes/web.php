@@ -46,6 +46,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check_block']], func
     Route::resource('documents', DocumentController::class);
     Route::post('document-verify/{id}',[DocumentController::class,'verify'])->name('documents.verify');
     Route::post('document-store-permission/{id}',[DocumentController::class,'storePermission'])->name('documents.store-permission');
+    Route::post('document-forward/{id}',[DocumentController::class,'storePermissionAndVerify'])->name('documents.forward');
     Route::post('document-delete-permission/{document_id}/{user_id}',[DocumentController::class,'deletePermission'])->name('documents.delete-permission');
     Route::group(['prefix' => '/files-upload', 'as' => 'documents.files.'], function () {
         Route::get('/{id}', [DocumentController::class,'showUploadFilesUi'])->name('create');
