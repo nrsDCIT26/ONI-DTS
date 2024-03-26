@@ -359,6 +359,7 @@
                         <div class="tab-pane" id="tab_verification">
                             <div class="modal fade" id="modal-forward">
                                 {{ Form::open(['route' => ['documents.forward', request('document')], 'id' => 'permissionForm'])}}
+                                @can('user manage permission')
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -393,6 +394,7 @@
                                     </div>
                                 </div>
                                 {{ Form::close() }}
+                                @endcan
                             </div>
 
                             {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post', 'id' => 'verificationForm']) !!}
@@ -432,7 +434,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @endcan
+                                    @endcan00 
 
                         <div class="tab-pane" id="tab_activity">
                             <ul class="timeline">
