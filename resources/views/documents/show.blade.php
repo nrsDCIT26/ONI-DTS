@@ -283,7 +283,7 @@
                                 @foreach ($document->files->sortBy('file_type_id') as $file)
                                     <div class="col-xs-6 col-md-6 col-lg-4">
                                         <div class="box custom-box">
-                                            <div class="box-body">
+                                            <div class="box-body">  
                                                 @if (checkIsFileIsImage($file->file))
                                                     <span class="img-d-select">
                                                     <input type="checkbox" value="{{$file->file}}" name="topdf_check[]" class="iCheck-helper"/>
@@ -434,7 +434,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @endcan00 
+                                    @endcan
 
                         <div class="tab-pane" id="tab_activity">
                             <ul class="timeline">
