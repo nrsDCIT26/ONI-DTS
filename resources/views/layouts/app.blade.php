@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('vendor/bootstrap-wysihtml5/css/bootstrap3-wysihtml5.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/bootstrap-tagsinput/css/bootstrap-tagsinput.css')}}">
     <link rel="stylesheet" href="{{asset('css/digidocu-custom.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     @yield('css')
 </head>
 
@@ -40,10 +41,7 @@
                         <span style="color: blue;">{{ $second_half }}</span>
                     </b>
                 </span>
-
-
             </a>
-
 
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -60,7 +58,7 @@
                     <ul class="nav navbar-nav">
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
-                            <!-- Menu Toggle Button -->
+                            <i class="fa-solid fa-bell"></i>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
                                 <img src="{{asset(config('settings.system_logo'))}}"
