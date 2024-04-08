@@ -15,7 +15,7 @@
 @can('viewAny',\App\Document::class)
     <li class="treeview {{ Request::is('admin/documents*') ? 'active' : '' }}">
         <a href="{!! route('documents.index') !!}">
-            <i class="fa fa-info-circle"></i>
+            <i class="fa fa-file-text-o"></i>
             <span>Documents</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -23,14 +23,13 @@
         </a>
         <ul class="treeview-menu">
             <li class="{{ Request::is('admin/advanced/settings*') ? 'active' : '' }}">
-                <a href="{!! route('settings.index') !!}"><i class="fa fa-gear"></i><span>Pending</span></a>
+                <a href="{!! route('settings.index') !!}"><i class="fa fa-clock-o"></i><span>Pending</span></a>
             </li>
             <li class="{{ Request::is('admin/advanced/custom-fields*') ? 'active' : '' }}">
-                <a href="{!! route('customFields.index') !!}"><i
-                        class="fa fa-file-text-o"></i><span>Forwaded</span></a>
+                <a href="{!! route('customFields.index') !!}"><i class="fa fa-forward"></i><span>Forwaded</span></a>
             </li>
             <li class="{{ Request::is('admin/advanced/file-types*') ? 'active' : '' }}">
-                <a href="{!! route('fileTypes.index') !!}"><i class="fa fa-file-o"></i><span>Approved</span></a>
+                <a href="{!! route('fileTypes.index') !!}"><i class="fa fa-check-circle"></i><span>Approved</span></a>
             </li>
         </ul>
     </li>
