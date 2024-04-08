@@ -13,9 +13,26 @@
     </li>
 @endcan
 @can('viewAny',\App\Document::class)
-    <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
-        <a href="{!! route('documents.index') !!}"><i
-                class="fa fa-file"></i><span>{{ucfirst(config('settings.document_label_plural'))}}</span></a>
+    <li class="treeview {{ Request::is('admin/documents*') ? 'active' : '' }}">
+        <a href="{!! route('documents.index') !!}">
+            <i class="fa fa-info-circle"></i>
+            <span>Documents</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class="{{ Request::is('admin/advanced/settings*') ? 'active' : '' }}">
+                <a href="{!! route('settings.index') !!}"><i class="fa fa-gear"></i><span>Pending</span></a>
+            </li>
+            <li class="{{ Request::is('admin/advanced/custom-fields*') ? 'active' : '' }}">
+                <a href="{!! route('customFields.index') !!}"><i
+                        class="fa fa-file-text-o"></i><span>Forwaded</span></a>
+            </li>
+            <li class="{{ Request::is('admin/advanced/file-types*') ? 'active' : '' }}">
+                <a href="{!! route('fileTypes.index') !!}"><i class="fa fa-file-o"></i><span>Approved</span></a>
+            </li>
+        </ul>
     </li>
 @endcan
 @if(auth()->user()->is_super_admin)

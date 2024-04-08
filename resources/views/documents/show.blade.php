@@ -401,21 +401,21 @@
                             <div class="form-group text-center">
                                 <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder="Enter Comment to verify with comment(optional)"></textarea>
                             </div>
-
-                                <div class="w3-dropdown-hover w3-right">
-                                    <button class="w3-button w3-black" type="button" id="menu1" data-toggle="dropdown">Action
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <button class="btn btn-success dropdown-toggle"type="button" id="menu1" data-toggle="dropdown">Action
                                         <span class="caret"></span>
                                     </button>
-                                    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0" role="menu" aria-labelledby="menu1">
-                                        <a class="dropdown-item" type="submit" name="action" value="approve" style = "cursor: pointer;"><i class="fa fa-check"></i> Approve</a></li>
-                                        <a class="dropdown-item" type="button" id="approveAndForward" style = "cursor: pointer;">
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                        <li><button class="dropdown-item" type="submit" name="action" value="approve"><i class="fa fa-check"></i> Approve</button></li>
+                                        <button class="dropdown-item" type="button" id="approveAndForward">
                                             <i class="fa fa-forward"></i> Approve and Forward
-                                        </a>
-                                        <a class="dropdown-item" type="submit" name="action" value="return" style = "cursor: pointer;"><i class="fa fa-backward"></i> Return</a></li>
-                                        <a class="dropdown-item" type="submit" name="action" value="reject" style = "cursor: pointer;"><i class="fa fa-close"></i> Reject</a></li>
-                                    </div>
+                                        </button>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="return"><i class="fa fa-backward"></i> Return</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="reject"><i class="fa fa-close"></i> Reject</button></li>
+                                    </ul>
                                 </div>
-                       
+                            </div>
                             {!! Form::close() !!}
                                         <div class="form-group">
                                             @if ($document->status == config('constants.STATUS.APPROVED'))
