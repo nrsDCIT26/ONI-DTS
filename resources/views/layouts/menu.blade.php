@@ -22,14 +22,14 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li class="{{ Request::is('admin/advanced/settings*') ? 'active' : '' }}">
-                <a href="{!! route('settings.index') !!}"><i class="fa fa-clock-o"></i><span>Pending</span></a>
+            <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
+                <a href="{!! route('documents.index') !!}"><i class="fa fa-clock-o"></i><span>Outgoing</span></a>
             </li>
-            <li class="{{ Request::is('admin/advanced/custom-fields*') ? 'active' : '' }}">
-                <a href="{!! route('customFields.index') !!}"><i class="fa fa-forward"></i><span>Forwaded</span></a>
+            <li class="">
+                <a href=""><i class="fa fa-forward"></i><span>Incoming</span></a>
             </li>
-            <li class="{{ Request::is('admin/advanced/file-types*') ? 'active' : '' }}">
-                <a href="{!! route('fileTypes.index') !!}"><i class="fa fa-check-circle"></i><span>Approved</span></a>
+            <li class="">
+                <a href=""><i class="fa fa-check-circle"></i><span>Approved</span></a>
             </li>
         </ul>
     </li>
