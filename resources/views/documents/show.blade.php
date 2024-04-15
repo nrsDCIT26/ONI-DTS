@@ -399,8 +399,9 @@
 
                             {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post', 'id' => 'verificationForm']) !!}
                             @if ($document->status!=config('constants.STATUS.APPROVED'))
+                            <h5 class="modal-title text-muted">Comments / Remarks</h5>
                             <div class="form-group text-center">
-                                <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder="Enter Comment to verify with comment(optional)"></textarea>
+                                <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder=""></textarea>
                             </div>
                            
                             <div class="form-group">
