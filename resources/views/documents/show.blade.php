@@ -241,7 +241,7 @@
                             <label>Last Updated:</label>
                             <p>{!! formatDateTime($document->updated_at) !!} <br>
                                 ({{\Carbon\Carbon::parse($document->updated_at)->diffForHumans()}})
-                            </p>
+                            </p> 
                         </div>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
                             <li class=""><a href="#tab_verification" data-toggle="tab"
                                             aria-expanded="false">Verification</a></li>
                         @endcan
-                        <li class=""><a href="#tab_activity" data-toggle="tab" aria-expanded="false">Activity</a></li>
+                        <li class=""><a href="#tab_activity" data-toggle="tab" aria-expanded="false">Tracking Status</a></li>
                         @can('user manage permission')
                             <li class=""><a href="#tab_permissions" data-toggle="tab"
                                             aria-expanded="false">Permission</a>

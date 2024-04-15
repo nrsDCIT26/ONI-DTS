@@ -243,7 +243,7 @@ class DocumentController extends Controller
             $msg = "Rejected";
         } elseif ($action == 'approvef') {
             $this->documentRepository->approvedFDoc($document);
-            $msg = "Forwarded to Chief of Hospital" ."</i>";
+            $msg = "Forwarded to" ."</i>";
         } elseif ($action == 'return') {
             $this->documentRepository->returnDoc($document);
             $msg = "Returned";

@@ -106,7 +106,7 @@
             <div class="col-sm-12">
                 <div class="box box-default">
                     <div class="box-header no-border">
-                        <h3 class="box-title">Activity</h3>
+                        <h3 class="box-title">Activities</h3>
 
                         <div class="box-tools pull-right">
                             {!! Form::open(['method' => 'get','style'=>'display:inline;']) !!}
