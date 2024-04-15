@@ -398,9 +398,11 @@
                             </div>
 
                             {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post', 'id' => 'verificationForm']) !!}
+                            @if ($document->status!=config('constants.STATUS.APPROVED'))
                             <div class="form-group text-center">
                                 <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder="Enter Comment to verify with comment(optional)"></textarea>
                             </div>
+                           
                             <div class="form-group">
                                 <div class="dropdown">
                                     <button class="btn btn-success dropdown-toggle"type="button" id="menu1" data-toggle="dropdown">Action
@@ -416,6 +418,8 @@
                                     </ul>
                                 </div>
                             </div>
+                            @else
+                            @endif
                             {!! Form::close() !!}
                                         <div class="form-group">
                                             @if ($document->status == config('constants.STATUS.APPROVED'))

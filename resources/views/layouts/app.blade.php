@@ -58,7 +58,7 @@
                     <ul class="nav navbar-nav">
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
-                            <i class="fa-solid fa-bell"></i>
+                          <!--  <i class="fa-solid fa-bell"></i> -->    
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
                                 <img src="{{asset(config('settings.system_logo'))}}"
