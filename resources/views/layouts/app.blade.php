@@ -38,7 +38,7 @@
                             $second_half = mb_substr($title, $half_length);
                         @endphp
                         <span style="color: green;">{{ $first_half }}</span>
-                        <span style="color: blue;">{{ $second_half }}</span>
+                        <span style="color: #6082B6;">{{ $second_half }}</span>
                     </b>
                 </span>
             </a>

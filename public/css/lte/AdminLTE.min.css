@@ -6,8 +6,42 @@
  *   Repository: git://github.com/ColorlibHQ/AdminLTE.git
  *   License: MIT <http://opensource.org/licenses/MIT>
  */
-html, body {
-    height: 100%
+ :root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+  
+ html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .layout-boxed html, .layout-boxed body {
@@ -15,17 +49,18 @@ html, body {
 }
 
 body {
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 500;
+    background-color: #fff;
     overflow-x: hidden;
-    overflow-y: auto
+    overflow-y: scroll;
 }
 
 .wrapper {
     height: 100%;
     position: relative;
     overflow-x: hidden;
-    overflow-y: auto
+    overflow-y: auto;
 }
 
 .wrapper:before, .wrapper:after {
@@ -2299,9 +2334,9 @@ a:hover, a:active, a:focus {
     top: 0;
     bottom: 0;
     width: 4px;
-    background: #ddd;
+    background: #AFE1AF;
     left: 31px;
-    margin: 0;
+    margin-bottom: 15px;
     border-radius: 2px
 }
 
@@ -2358,17 +2393,17 @@ a:hover, a:active, a:focus {
 }
 
 .timeline>li>.fa, .timeline>li>.glyphicon, .timeline>li>.ion {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     font-size: 15px;
     line-height: 30px;
     position: absolute;
     color: #666;
-    background: #d2d6de;
+    background: #AFE1AF;
     border-radius: 50%;
     text-align: center;
-    left: 18px;
-    top: 0
+    left: 23px;
+    top: 10px;
 }
 
 .timeline>.time-label>span {
@@ -2451,8 +2486,8 @@ a:hover, a:active, a:focus {
 }
 
 .btn-primary {
-    background-color: #3b8e3f;
-    border-color: #3b8e3f
+    background-color: #6082B6;
+    border-color: 	#6082B6
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary.hover {

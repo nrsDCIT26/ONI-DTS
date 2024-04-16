@@ -125,27 +125,24 @@
                     <div class="box-body">
                         <ul class="timeline">
                             <li class="time-label">
-                                <span class="bg-red">{{formatDate(optional($activities->first())->created_at,'d M Y')}}</span>
+                            <span style="background-color:#E34234; color:#fff" >{{formatDate(optional($activities->first())->created_at,'d M Y')}}</span>
                             </li>
                             @foreach ($activities as $activity)
                                 @can('view',$activity->document)
                                 <li>
-                                    <i class="fa fa-user bg-aqua" data-toggle="tooltip"
+                                    <i class="fa fa-solid" data-toggle="tooltip"
                                        title="{{$activity->createdBy->name}}"></i>
 
                                     <div class="timeline-item">
                                             <span class="time" data-toggle="tooltip"
                                                   title="{{formatDateTime($activity->created_at)}}"><i
-                                                    class="fa fa-clock-o"></i> {{\Carbon\Carbon::parse($activity->created_at)->diffForHumans()}}</span>
+                                                    class="fa fa-solid"></i> {{\Carbon\Carbon::parse($activity->created_at)->diffForHumans()}}</span>
 
                                         <h4 class="timeline-header no-border">{!! $activity->activity !!}</h4>
                                     </div>
                                 </li>
                                 @endcan
                             @endforeach
-                            <li>
-                                <i class="fa fa-clock-o bg-gray"></i>
-                            </li>
                         </ul>
                         <div class="text-center">
                             {!! $activities->appends(request()->all())->render() !!}

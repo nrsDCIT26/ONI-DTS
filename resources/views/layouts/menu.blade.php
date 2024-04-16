@@ -1,22 +1,22 @@
 <li class="{{ Request::is('admin/home*') ? 'active' : '' }}">
-    <a href="{!! route('admin.dashboard') !!}"><i class="fa fa-home"></i><span>Home</span></a>
+    <a href="{!! route('admin.dashboard') !!}"><i class="fa fa-home"></i><span> HOME</span></a>
 </li>
 @can('read users')
     <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
-        <a href="{!! route('users.index') !!}"><i class="fa fa-users"></i><span>Users</span></a>
+        <a href="{!! route('users.index') !!}"><i class="fa fa-users"></i><span> USERS</span></a>
     </li>
 @endcan
 @can('read tags')
     <li class="{{ Request::is('admin/tags*') ? 'active' : '' }}">
         <a href="{!! route('tags.index') !!}"><i
-                class="fa fa-tags"></i><span>{{ucfirst(config('settings.tags_label_plural'))}}</span></a>
+                class="fa fa-tags"></i><span style="text-transform: uppercase;"> {{ucfirst(config('settings.tags_label_plural'))}}</span></a>
     </li>
 @endcan
 @can('viewAny',\App\Document::class)
     <li class="treeview {{ Request::is('admin/documents*') ? 'active' : '' }}">
         <a href="{!! route('documents.index') !!}">
             <i class="fa fa-file-text-o"></i>
-            <span>Documents</span>
+            <span>DOCUMENTS</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -38,7 +38,7 @@
     <li class="treeview {{ Request::is('admin/advanced*') ? 'active' : '' }}">
         <a href="#">
             <i class="fa fa-info-circle"></i>
-            <span>Advanced Settings</span>
+            <span>ADVANCE SETTINGS</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

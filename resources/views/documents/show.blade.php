@@ -375,6 +375,7 @@
                                                         <option value="">To:</option>
                                                         @foreach($users as $usr)
                                                             <option value="{{$usr->id}}">{{$usr->name}}</option>
+
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -444,25 +445,22 @@
                         <div class="tab-pane" id="tab_activity">
                             <ul class="timeline">
                                 <li class="time-label">
-                                    <span class="bg-red">{{formatDate($document->updated_at,'d M Y')}}</span>
+                                <span style="background-color:#E34234; color:#fff" >{{formatDate($document->updated_at,'d M Y')}}</span>
                                 </li>
                                 @foreach ($document->activities as $activity)
                                     <li>
-                                        <i class="fa fa-user bg-aqua" data-toggle="tooltip"
+                                        <i class="fa fa-solid" data-toggle="tooltip"
                                            title="{{$activity->createdBy->name}}"></i>
 
                                         <div class="timeline-item">
                                             <span class="time" data-toggle="tooltip"
                                                   title="{{formatDateTime($activity->created_at)}}"><i
-                                                    class="fa fa-clock-o"></i> {{\Carbon\Carbon::parse($activity->created_at)->diffForHumans()}}</span>
+                                                    class="fa fa-solid"></i> {{\Carbon\Carbon::parse($activity->created_at)->diffForHumans()}}</span>
 
                                             <h4 class="timeline-header no-border">{!! $activity->activity !!}</h4>
                                         </div>
                                     </li>
                                 @endforeach
-                                <li>
-                                    <i class="fa fa-clock-o bg-gray"></i>
-                                </li>
                             </ul>
                         </div>
                         @can('user manage permission')
