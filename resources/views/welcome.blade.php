@@ -16,14 +16,13 @@
             color: white;
             font-family: 'Arial', sans-serif;
             font-weight: 500;
-            height: 100vh;
             margin: 0;
         }
 
         body::after {
             content: "";
             background-image: url('../asset_img/oni.jpg'); 
-            opacity: 0.7; 
+            opacity: 0.5; 
             top: 0;
             left: 0;
             bottom: 0;
@@ -57,16 +56,21 @@
             top: 18px;
             color: white; 
         }
-        
-
+        .top-right {
+            position: relative;
+            left: 30%;
+            top: 18px;
+            color: white; 
+        }
         .content {
             margin: auto; 
         }
 
         .title {
-            font-size: 4rem; 
+            font-size: 4vw; 
             font-weight: bold; 
             margin-bottom: 0.5rem; 
+            position: relative;
         }
 
         .subtext {
@@ -91,13 +95,45 @@
             background-color: #ffffff;
             color: #000000;
         }
+        .typewriter h1 {
+            font-size: 2vw; 
+            color: #fff;
+            font-family: monospace;
+            overflow: hidden; /* Ensures the content is not revealed until the animation */
+            border-right: .15em solid orange; /* The typwriter cursor */
+            white-space: nowrap; /* Keeps the content on a single line */
+            margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+            letter-spacing: .15em; /* Adjust as needed */
+            animation: 
+                typing 3.5s steps(30, end),
+                blink-caret .5s step-end infinite;
+            }
+
+            /* The typing effect */
+            @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+            }
+
+            /* The typewriter cursor effect */
+            @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange }
+            }
+        .logos {
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            white-space: nowrap; 
+            width: 15%;
+        }
     </style>
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-        <div class="top-left links">
-            <img src="../asset_img/logo-imus.png" alt="City Government of Imus" width="125px" height="50px">
-            <img src="../asset_img/logo-oni.png" alt="Ospital ng Imus" width="50px" height="50px">
+        <div class="top-right links">
+            <img  class="logos" src="../asset_img/logo-oni.png" alt="Ospital ng Imus">
+            <img  class="logos" src="../asset_img/logo-imus.png" alt="City Government of Imus">
         </div>
 
     <div class="content">
@@ -105,8 +141,8 @@
             Ospital ng Imus
         </div>
 
-        <div class="subtext">
-            Document Tracking System
+        <div class="typewriter">
+            <h1>Document Tracking System</h1>
         </div>
         <br><br>
 
