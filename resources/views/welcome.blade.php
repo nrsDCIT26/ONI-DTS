@@ -125,15 +125,15 @@
             margin-left: auto;
             margin-right: auto;
             white-space: nowrap; 
-            width: 15%;
+            width: 10%;
         }
     </style>
 </head>
 <body>
 <div class="flex-center position-ref full-height">
         <div class="top-right links">
-            <img  class="logos" src="../asset_img/logo-oni.png" alt="Ospital ng Imus">
-            <img  class="logos" src="../asset_img/logo-imus.png" alt="City Government of Imus">
+            <img  class="logos" src="../asset_img/logo-oni-white.png" alt="Ospital ng Imus">
+            <img  class="logos" src="../asset_img/logo-imus-white.png" alt="City Government of Imus">
         </div>
 
     <div class="content">
