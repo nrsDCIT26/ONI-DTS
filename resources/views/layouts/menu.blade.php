@@ -23,13 +23,16 @@
         </a>
         <ul class="treeview-menu">
             <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
-                <a href="{!! route('documents.index') !!}"><i class="fa fa-clock-o"></i><span>Outgoing</span></a>
+                <a href="{!! route('documents.index') !!}"><i class="fa fa-clock-o"></i><span>Incoming</span></a>
             </li>
             <li class="">
-                <a href=""><i class="fa fa-forward"></i><span>Incoming</span></a>
+                <a href=""><i class="fa fa-forward"></i><span>Outgoing</span></a>
             </li>
             <li class="">
                 <a href=""><i class="fa fa-check-circle"></i><span>Approved</span></a>
+            </li>
+            <li class="">
+                <a href=""><i class="fa fa-user-slash"></i></i></i><span>Declined</span></a>
             </li>
         </ul>
     </li>
