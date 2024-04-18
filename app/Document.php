@@ -108,9 +108,16 @@ class Document extends Model
 
     public function getIsVerifiedAttribute()
     {
-        return !empty($this->verified_by) && !empty($this->verified_at) && $this->status==config('constants.STATUS.APPROVED');
+        return $this->status==config('constants.STATUS.APPROVED');
     }
-
+    public function getIsOngoingAttribute()
+    {
+        return $this->status!=config('constants.STATUS.APPROVED') && $this->status!=config('constants.STATUS.DECLINED');
+    }
+    public function getIsDeclinedAttribute()
+    {
+        return $this->status==config('constants.STATUS.DECLINED');
+    }
     public function files()
     {
         return $this->hasMany(File::class,'document_id', 'id');

@@ -5620,3 +5620,8 @@ hr {
   
   tr:hover {background-color: #E5E4E2;
 }
+.logo-navbar {
+    display: inline-block;
+    white-space: nowrap; 
+    width: 22%;
+}

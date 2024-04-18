@@ -37,7 +37,8 @@
                             $first_half = mb_substr($title, 0, $half_length);
                             $second_half = mb_substr($title, $half_length);
                         @endphp
-                        <span style="color: green;">{{ $first_half }}</span>
+                        <img  class="logo-navbar" src="../asset_img/logo-oni.png" alt="Ospital ng Imus">
+                        <span style="color: #3b8e3f;">{{ $first_half }}</span>
                         <span style="color: #6082B6;">{{ $second_half }}</span>
                     </b>
                 </span>

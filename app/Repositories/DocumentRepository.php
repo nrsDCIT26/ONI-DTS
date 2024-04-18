@@ -161,7 +161,7 @@ class DocumentRepository extends BaseRepository
 
     public function rejectDoc($document)
     {
-        $document->status = config('constants.STATUS.REJECT');
+        $document->status = config('constants.STATUS.DECLINED');
         $document->save();
     }
 

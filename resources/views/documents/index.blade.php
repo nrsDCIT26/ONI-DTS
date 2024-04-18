@@ -108,7 +108,7 @@
                 </div>
                 <div class="form-group">
                     <label for="status" class="sr-only">{{config('settings.tags_label_singular')}}:</label>
-                    {!! Form::select('status',['0'=>"ALL",config('constants.STATUS.PENDING')=>config('constants.STATUS.PENDING'),config('constants.STATUS.APPROVED')=>config('constants.STATUS.APPROVED'),config('constants.STATUS.REJECT')=>config('constants.STATUS.REJECT')],null,['class'=>'form-control input-sm']) !!}
+                    {!! Form::select('status',['0'=>"ALL",config('constants.STATUS.PENDING')=>config('constants.STATUS.PENDING'),config('constants.STATUS.APPROVED')=>config('constants.STATUS.APPROVED'),config('constants.STATUS.DECLINED')=>config('constants.STATUS.DECLINED')],null,['class'=>'form-control input-sm']) !!}
                 </div>
                 <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-filter"></i> Filter</button>
                 {!! Form::close() !!}
@@ -165,15 +165,21 @@
                                     @foreach ($document->tags as $tag)
                                             <small class="label"
                                                    style="background-color: {{$tag->color}};font-size: 0.93rem;">{{$tag->name}}</small>
-                                        @endforeach
+                                    @endforeach
                                     </span>
                                         <h5 class="widget-user-username" title="{{$document->name}}"
                                             data-toggle="tooltip">{{$document->name}}</h5>
                                         <h5 class="widget-user-desc" style="font-size: 12px"><span data-toggle="tooltip"
-                                                                                                   title="{{formatDateTime($document->updated_at)}}">{{formatDate($document->updated_at)}}</span>
+                                                title="{{formatDateTime($document->updated_at)}}">{{formatDate($document->updated_at)}}</span>
                                             <span
                                                 class="pull-right" style="margin-right: 15px;">
-                                            {!! $document->isVerified ? '<i title="Verified" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>':'<i title="Unverified" data-toggle="tooltip" class="fa fa-remove" style="color: #f44336;"></i>' !!}
+                                            @if ($document->isVerified == true)
+                                            <i title="Verified" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
+                                            @elseif ($document->isOngoing == true)
+                                            <i title="Ongoing" data-toggle="tooltip" class="fa fa-check-circle" style="color: #E49B0F;"></i>
+                                            @elseif ($document->isDeclined == true)
+                                            '<i title="Unverified" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
+                                            @endif
                                         </span></h5>
                                     </a>
                                 </div>

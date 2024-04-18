@@ -416,7 +416,7 @@
                                             <i class="fa fa-forward"></i> Approve and Forward
                                         </button>
                                         <li><button class="dropdown-item" type="submit" name="action" value="return"><i class="fa fa-backward"></i> Return</button></li>
-                                        <li><button class="dropdown-item" type="submit" name="action" value="reject"><i class="fa fa-close"></i> Reject</button></li>
+                                        <li><button class="dropdown-item" type="submit" name="action" value="decline"><i class="fa fa-close"></i> Decline</button></li>
                                     </ul>
                                 </div>
                             </div>
@@ -445,7 +445,7 @@
                         <div class="tab-pane" id="tab_activity">
                             <ul class="timeline">
                                 <li class="time-label">
-                                <span style="background-color:#E34234; color:#fff" >{{formatDate($document->updated_at,'d M Y')}}</span>
+                                <span style="background-color:#E34234; color:#fff; font-size: 11px;" >{{formatDate($document->updated_at,'d M Y')}}</span>
                                 </li>
                                 @foreach ($document->activities as $activity)
                                     <li>
@@ -457,11 +457,12 @@
                                                   title="{{formatDateTime($activity->created_at)}}"><i
                                                     class="fa fa-solid"></i> {{\Carbon\Carbon::parse($activity->created_at)->diffForHumans()}}</span>
 
-                                            <h4 class="timeline-header no-border">{!! $activity->activity !!}</h4>
+                                            <h4 class="timeline-header">{!! $activity->activity !!}</h4>
                                         </div>
                                     </li>
                                 @endforeach
                             </ul>
+                            
                         </div>
                         @can('user manage permission')
                             <div class="tab-pane" id="tab_permissions">

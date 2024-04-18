@@ -238,9 +238,9 @@ class DocumentController extends Controller
         if ($action == 'approve') {
             $this->documentRepository->approveDoc($document);
             $msg = "Approved";
-        } elseif ($action == 'reject') {
+        } elseif ($action == 'decline') {
             $this->documentRepository->rejectDoc($document);
-            $msg = "Rejected";
+            $msg = "Declined";
         } elseif ($action == 'approvef') {
             $this->documentRepository->approvedFDoc($document);
             $msg = "Forwarded to" ."</i>";
@@ -353,10 +353,10 @@ class DocumentController extends Controller
             $this->documentRepository->approveDoc($document);
             $msg = "Approved";
 
-        } elseif ($action == 'reject') {
+        } elseif ($action == 'decline') {
 
-            $this->documentRepository->rejectDoc($document);
-            $msg = "Rejected";
+            $this->documentRepository->declineDoc($document);
+            $msg = "Declined";
 
         } elseif ($action == 'approvef') {
 

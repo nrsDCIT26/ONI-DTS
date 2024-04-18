@@ -4,7 +4,7 @@ return [
         "PENDING" => 'PENDING',
         "ACTIVE" => 'ACTIVE',
         "BLOCK" => 'BLOCK',
-        "REJECT" => 'REJECT',
+        "DECLINED" => 'DECLINED',
         "APPROVED" => 'APPROVED',
         "APPROVED AND FORWARDED" => 'APPROVED AND FORWARDED',
         "RETURNED" => 'RETURNED',
