@@ -173,14 +173,14 @@
                                                 title="{{formatDateTime($document->updated_at)}}">{{formatDate($document->updated_at)}}</span>
                                             <span
                                                 class="pull-right" style="margin-right: 15px;">
-                                            @if ($document->isVerified == true)
-                                            <i title="Verified" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
-                                            @elseif ($document->isOngoing == true)
-                                            <i title="Ongoing" data-toggle="tooltip" class="fa fa-check-circle" style="color: #E49B0F;"></i>
-                                            @elseif ($document->isDeclined == true)
-                                            '<i title="Unverified" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
-                                            @endif
-                                        </span></h5>
+                                                @if ($document->isVerified == true)
+                                                <i title="Verified" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
+                                                @elseif ($document->isOngoing == true)
+                                                <i title="Ongoing" data-toggle="tooltip" class="fa fa-clock" style="color: #E49B0F;"></i>
+                                                @elseif ($document->isDeclined == true)
+                                                '<i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
+                                                @endif
+                                            </span></h5>
                                     </a>
                                 </div>
                             </div>
