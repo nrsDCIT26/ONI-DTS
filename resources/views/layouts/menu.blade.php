@@ -23,10 +23,10 @@
         </a>
         <ul class="treeview-menu">
             <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
-                <a href="{!! route('documents.index') !!}"><i class="fa fa-clock-o"></i><span>Incoming</span></a>
+                <a href="{!! route('documents.index', ['status' => 'PENDING']) !!}"><i class="fa fa-solid fa-file-arrow-down"></i></i><span>Filed</span></a>
             </li>
             <li class="">
-                <a href="{!! route('documents.index', ['status' => 'PENDING']) !!}"><i class="fa fa-forward"></i><span>Outgoing</span></a>
+                <a href="{!! route('documents.index', ['status' => 'FORWARDED']) !!}"><i class="fa fa-forward"></i><span>In Progress</span></a>
             </li>
             <li class="">
                 <a href="{!! route('documents.index', ['status' => 'APPROVED']) !!}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>

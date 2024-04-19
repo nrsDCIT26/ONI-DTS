@@ -112,11 +112,11 @@ class Document extends Model
     }
     public function getIsOngoingAttribute()
     {
-        return $this->status!=config('constants.STATUS.APPROVED') && $this->status!=config('constants.STATUS.DECLINED');
+        return $this->status!=config('constants.STATUS.APPROVED') && $this->status!=config('constants.STATUS.DECLINED') && $this->status!=config('constants.STATUS.FORWARDED');
     }
     public function getIsForwardedAttribute()
     {
-        return $this->status==config('constants.STATUS.DECLINED');
+        return $this->status==config('constants.STATUS.FORWARDED');
     }
     public function getIsDeclinedAttribute()
     {

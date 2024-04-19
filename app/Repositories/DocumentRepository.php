@@ -169,7 +169,7 @@ class DocumentRepository extends BaseRepository
     {
         $document->verified_by = Auth::id();
         $document->verified_at = now();
-        $document->status = config('constants.STATUS.APPROVED AND FORWARDED');
+        $document->status = config('constants.STATUS.FORWARDED');
         $document->save();
     }
 

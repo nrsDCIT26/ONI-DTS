@@ -222,7 +222,7 @@
                                 <span class="label label-warning">{{$document->status}}</span>
                             @elseif($document->status==config('constants.STATUS.APPROVED'))
                                 <span class="label label-success">{{$document->status}}</span>
-                                @elseif($document->status==config('constants.STATUS.APPROVED AND FORWARDED'))
+                                @elseif($document->status==config('constants.STATUS.FORWARDED'))
                                 <span class="label label-success">{{$document->status}}</span>
                             @else
                                 <span class="label label-danger">{{$document->status}}</span>
