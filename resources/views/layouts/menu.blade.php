@@ -26,13 +26,13 @@
                 <a href="{!! route('documents.index') !!}"><i class="fa fa-clock-o"></i><span>Incoming</span></a>
             </li>
             <li class="">
-                <a href=""><i class="fa fa-forward"></i><span>Outgoing</span></a>
+                <a href="{!! route('documents.index', ['status' => 'PENDING']) !!}"><i class="fa fa-forward"></i><span>Outgoing</span></a>
             </li>
             <li class="">
-                <a href=""><i class="fa fa-check-circle"></i><span>Approved</span></a>
+                <a href="{!! route('documents.index', ['status' => 'APPROVED']) !!}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
             </li>
             <li class="">
-                <a href=""><i class="fa fa-user-slash"></i></i></i><span>Declined</span></a>
+                <a href="{!! route('documents.index', ['status' => 'DECLINED']) !!}"><i class="fa fa-solid fa-file-excel"></i><span>Declined</span></a>
             </li>
         </ul>
     </li>

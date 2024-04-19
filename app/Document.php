@@ -114,6 +114,10 @@ class Document extends Model
     {
         return $this->status!=config('constants.STATUS.APPROVED') && $this->status!=config('constants.STATUS.DECLINED');
     }
+    public function getIsForwardedAttribute()
+    {
+        return $this->status==config('constants.STATUS.DECLINED');
+    }
     public function getIsDeclinedAttribute()
     {
         return $this->status==config('constants.STATUS.DECLINED');

@@ -174,7 +174,7 @@
                                             <span
                                                 class="pull-right" style="margin-right: 15px;">
                                                 @if ($document->isVerified == true)
-                                                <i title="Verified" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
+                                                <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
                                                 @elseif ($document->isOngoing == true)
                                                 <i title="Ongoing" data-toggle="tooltip" class="fa fa-clock" style="color: #E49B0F;"></i>
                                                 @elseif ($document->isDeclined == true)
