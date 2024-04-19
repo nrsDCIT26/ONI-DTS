@@ -22,11 +22,32 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
-                <a href="{!! route('documents.index', ['status' => 'PENDING']) !!}"><i class="fa fa-solid fa-file-arrow-down"></i></i><span>Recent</span></a>
-            </li>
+        <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
+            <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-down"></i><span>Upload</span></a>
+        </li>
+        <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }}">
+            <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-forward"></i><span>In Progress</span></a>
+        </li>
+        <li class="{{ Request::query('status') == 'APPROVED' ? 'active' : '' }}">
+            <a href="{{ route('documents.index', ['status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
+        </li>
+        <li class="{{ Request::query('status') == 'DECLINED' ? 'active' : '' }}">
+            <a href="{{ route('documents.index', ['status' => 'DECLINED']) }}"><i class="fa fa-solid fa-file-excel"></i><span>Declined</span></a>
+        </li>
+        </ul>
+    </li>
+@can('user manage permission')
+    <li class="treeview">
+        <a href="{!! route('documents.index') !!}">
+            <i class="fa fa-file-text-o"></i>
+            <span>RECEIVED FILES</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
             <li class="">
-                <a href="{!! route('documents.index', ['status' => 'FORWARDED']) !!}"><i class="fa fa-forward"></i><span>In Progress</span></a>
+                <a href=""><i class="fa fa-solid fa-file-arrow-down"></i></i><span>To </span></a>
             </li>
             <li class="">
                 <a href="{!! route('documents.index', ['status' => 'APPROVED']) !!}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
@@ -36,6 +57,7 @@
             </li>
         </ul>
     </li>
+@endcan
 @endcan
 @if(auth()->user()->is_super_admin)
     <li class="treeview {{ Request::is('admin/advanced*') ? 'active' : '' }}">

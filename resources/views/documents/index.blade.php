@@ -173,12 +173,10 @@
                                                 title="{{formatDateTime($document->updated_at)}}">{{formatDate($document->updated_at)}}</span>
                                             <span
                                                 class="pull-right" style="margin-right: 15px;">
-                                                @if ($document->isVerified == true)
+                                                @if ($document->isOngoing == true)
+                                                <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color: #E49B0F;"></i>
+                                                @elseif ($document->isVerified == true)
                                                 <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
-                                                @elseif ($document->isOngoing == true)
-                                                <i title="Pending" data-toggle="tooltip" class="fa fa-clock" style="color: #E49B0F;"></i>
-                                                @elseif ($document->isForwarded == true)
-                                                <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color: #388E3C;"></i>
                                                 @elseif ($document->isDeclined == true)
                                                 '<i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
                                                 @endif

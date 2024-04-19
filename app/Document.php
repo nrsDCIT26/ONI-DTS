@@ -105,18 +105,17 @@ class Document extends Model
     {
         return $this->belongsToMany(Tag::class,'documents_tags','document_id','tag_id');
     }
-
-    public function getIsVerifiedAttribute()
+    public function getIsNewAttribute()
     {
-        return $this->status==config('constants.STATUS.APPROVED');
+        return !empty($this->verified_by) && !empty($this->verified_at);
     }
     public function getIsOngoingAttribute()
     {
-        return $this->status!=config('constants.STATUS.APPROVED') && $this->status!=config('constants.STATUS.DECLINED') && $this->status!=config('constants.STATUS.FORWARDED');
+        return $this->status!=config('constants.STATUS.APPROVED') && $this->status!=config('constants.STATUS.DECLINED');
     }
-    public function getIsForwardedAttribute()
+    public function getIsVerifiedAttribute()
     {
-        return $this->status==config('constants.STATUS.FORWARDED');
+        return $this->status==config('constants.STATUS.APPROVED');
     }
     public function getIsDeclinedAttribute()
     {
