@@ -23,7 +23,7 @@
         </a>
         <ul class="treeview-menu">
             <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
-                <a href="{!! route('documents.index', ['status' => 'PENDING']) !!}"><i class="fa fa-solid fa-file-arrow-down"></i></i><span>Filed</span></a>
+                <a href="{!! route('documents.index', ['status' => 'PENDING']) !!}"><i class="fa fa-solid fa-file-arrow-down"></i></i><span>Recent</span></a>
             </li>
             <li class="">
                 <a href="{!! route('documents.index', ['status' => 'FORWARDED']) !!}"><i class="fa fa-forward"></i><span>In Progress</span></a>
