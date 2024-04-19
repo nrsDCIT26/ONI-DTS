@@ -106,11 +106,11 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group">
+               <!-- <div class="form-group">
                     <label for="status" class="sr-only">{{config('settings.tags_label_singular')}}:</label>
                     {!! Form::select('status',['0'=>"ALL",config('constants.STATUS.PENDING')=>config('constants.STATUS.PENDING'),config('constants.STATUS.APPROVED')=>config('constants.STATUS.APPROVED'),config('constants.STATUS.DECLINED')=>config('constants.STATUS.DECLINED')],null,['class'=>'form-control input-sm']) !!}
-                </div>
-                <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-filter"></i> Filter</button>
+                </div> 
+                <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-filter"></i> Filter</button> -->
                 {!! Form::close() !!}
             </div>
             <div class="box-body">
