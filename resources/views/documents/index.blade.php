@@ -114,81 +114,67 @@
                 {!! Form::close() !!}
             </div>
             <div class="box-body">
-                <div class="row">
-                    @foreach ($documents as $document)
-                        @cannot('view',$document)
-                            @continue
-                        @endcannot
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6 m-t-20" style="cursor:pointer;">
-                            <div class="doc-box box box-widget widget-user-2">
-                                <div class="widget-user-header bg-gray bg-folder-shaper no-padding">
-                                    <div class="folder-shape-top bg-gray"></div>
-                                    <div class="box-header">
-                                        <a href="{{route('documents.show',$document->id)}}" style="color: black;">
-                                            <h3 class="box-title"><i class="fa fa-folder text-yellow"></i></h3>
-                                        </a>
-
-                                        <div class="box-tools pull-right">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-default btn-flat dropdown-toggle"
-                                                        data-toggle="dropdown" aria-expanded="false"
-                                                        style="    background: transparent;border: none;">
-                                                    <i class="fa fa-ellipsis-v"></i>
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                                                    <li><a href="{{route('documents.show',$document->id)}}">Show</a>
-                                                    </li>
-                                                    @can('edit',$document)
-                                                        <li><a href="{{route('documents.edit',$document->id)}}">Edit</a>
-                                                        </li>
-                                                    @endcan
-                                                    @can('delete',$document)
-                                                        <li>
-                                                            {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete']) !!}
-                                                            {!! Form::button('Delete', [
-                                                                        'type' => 'submit',
-                                                                        'class' => 'btn btn-link',
-                                                                        'onclick' => "return conformDel(this,event)"
-                                                                    ]) !!}
-                                                            {!! Form::close() !!}
-                                                        </li>
-                                                    @endcan
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user-image -->
-                                    <a href="{{route('documents.show',$document->id)}}" style="color: black;">
-                                    <span style="max-lines: 1; white-space: nowrap;margin-left: 3px;">
-                                    @foreach ($document->tags as $tag)
-                                            <small class="label"
-                                                   style="background-color: {{$tag->color}};font-size: 0.93rem;">{{$tag->name}}</small>
-                                    @endforeach
-                                    </span>
-                                        <h5 class="widget-user-username" title="{{$document->name}}"
-                                            data-toggle="tooltip">{{$document->name}}</h5>
-                                        <h5 class="widget-user-desc" style="font-size: 12px"><span data-toggle="tooltip"
-                                                title="{{formatDateTime($document->updated_at)}}">{{formatDate($document->updated_at)}}</span>
-                                            <span
-                                                class="pull-right" style="margin-right: 15px;">
-                                                @if ($document->isOngoing == true)
-                                                <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color: #E49B0F;"></i>
-                                                @elseif ($document->isVerified == true)
-                                                <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
-                                                @elseif ($document->isDeclined == true)
-                                                '<i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
-                                                @endif
-                                            </span></h5>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- /.widget-user -->
-                        </div>
-                    @endforeach
-                </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Document ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Last Updated</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($documents as $document)
+                            @cannot('view', $document)
+                                @continue
+                            @endcannot
+                            <tr>
+                                <td><i class="fa fa-folder text-yellow"></i>
+                                    <a href="{{ route('documents.show', $document->id) }}" style="color: black">{{ $document->document_id }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('documents.show', $document->id) }}">{{ $document->name }}</a>
+                                </td>
+                                <td>
+                                    @if ($document->activities->isNotEmpty())
+                                        @foreach ($document->activities->reverse() as $activity)
+                                            <h4>{!! $activity->activity !!}</h4>
+                                            @break
+                                        @endforeach
+                                    @else
+                                        <span>No activity</span>
+                                    @endif
+                                </td>
+                                <td>{{ formatDate($document->updated_at) }}</td>
+                                <td>
+                                    @if ($document->isOngoing)
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color: #E49B0F;"></i>
+                                    @elseif ($document->isVerified)
+                                        <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
+                                    @elseif ($document->isDeclined)
+                                        <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('documents.show', $document->id) }}" title="Show" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
+                                    @can('edit', $document)
+                                        <a href="{{ route('documents.edit', $document->id) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+                                    @endcan
+                                    @can('delete', $document)
+                                        {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline']) !!}
+                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete" onclick="return conformDel(this,event)"><i class="fa fa-trash"></i></button>
+                                        {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+        </div>
             <div class="box-footer">
                 {!! $documents->appends(request()->all())->render() !!}
             </div>

@@ -19,6 +19,7 @@ class DocumentRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
+        'document_id',
         'name',
         'status',
         'description',

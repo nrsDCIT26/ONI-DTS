@@ -49,6 +49,7 @@ class Document extends Model
     public $table = 'documents';
 
     public $fillable = [
+        'document_id',
         'name',
         'description',
         'status',
