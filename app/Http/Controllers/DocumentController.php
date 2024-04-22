@@ -97,23 +97,33 @@ class DocumentController extends Controller
         $data = $request->all();
         $data['created_by'] = Auth::id();
         $data['status'] = config('constants.STATUS.PENDING');
-
+        
+        // Generate document ID
+        $currentYear = date('Y');
+        $documentsCount = Document::whereYear('created_at', $currentYear)->count() + 1;
+        $documentId = sprintf("%s-%02d%02d-%03d", $currentYear, now()->format('m'), now()->format('d'), $documentsCount);
+        $data['document_id'] = $documentId;
+    
         $this->authorize('store', [Document::class, $data['tags']]);
-
+    
         $document = $this->documentRepository->createWithTags($data);
         Flash::success(ucfirst(config('settings.document_label_singular')) . " Saved Successfully");
         $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Created");
-
+    
         //create permission for new document
         foreach (config('constants.DOCUMENT_LEVEL_PERMISSIONS') as $perm_key => $perm) {
-            Permission::create(['name' => $perm_key . $document->id]);
-        }
-
+            $permissionName = $perm_key . $document->id;
+            // Check if the permission already exists
+            if (!Permission::where('name', $permissionName)->exists()) {
+                Permission::create(['name' => $permissionName]);
+            }
+        }        
+    
         if ($request->has('savnup')) {
             return redirect()->route('documents.files.create', $document->id);
         }
         return redirect()->route('documents.index');
-    }
+    }    
 
     /**
      * Display the specified resource.
