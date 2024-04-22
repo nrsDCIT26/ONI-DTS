@@ -37,6 +37,7 @@
         </ul>
     </li>
 @can('user manage permission')
+@if(!auth()->user()->is_super_admin)
     <li class="treeview">
         <a href="{!! route('documents.index') !!}">
             <i class="fa fa-file-text-o"></i>
@@ -47,7 +48,7 @@
         </a>
         <ul class="treeview-menu">
             <li class="">
-                <a href=""><i class="fa fa-solid fa-file-arrow-down"></i></i><span>To </span></a>
+                <a href=""><i class="fa fa-solid fa-file-arrow-down"></i></i><span>New</span></a>
             </li>
             <li class="">
                 <a href="{!! route('documents.index', ['status' => 'APPROVED']) !!}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
@@ -57,6 +58,7 @@
             </li>
         </ul>
     </li>
+    @endif
 @endcan
 @endcan
 @if(auth()->user()->is_super_admin)
