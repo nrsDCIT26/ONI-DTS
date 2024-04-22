@@ -141,8 +141,8 @@ class DocumentController extends Controller
         }
         $this->authorize('view', $document);
 
-        $missigDocMsgs = $this->documentRepository->buildMissingDocErrors($document);
-        $dataToRet = compact('document', 'missigDocMsgs');
+        // $missigDocMsgs = $this->documentRepository->buildMissingDocErrors($document);
+        $dataToRet = compact('document');
 
         if (auth()->user()->can('user manage permission')) {
             $users = User::where('id', '!=', 1)->get();

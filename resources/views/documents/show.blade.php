@@ -265,7 +265,7 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_files">
-                            @if (config('settings.show_missing_files_errors')=='true' && $document->status!=config('constants.STATUS.APPROVED') && count($missigDocMsgs)!=0)
+                        {{-- @if (config('settings.show_missing_files_errors')=='true' && $document->status!=config('constants.STATUS.APPROVED') && count($missigDocMsgs)!=0)
                                 <div class="alert alert-danger fade in alert-dismissible">
                                     <button class="close" data-dismiss="alert" aria-label="close" title="close">
                                         &times;
@@ -278,7 +278,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif
+                            @endif --}}
                             <div class="row">
                                 @foreach ($document->files->sortBy('file_type_id') as $file)
                                     <div class="col-xs-6 col-md-6 col-lg-4">

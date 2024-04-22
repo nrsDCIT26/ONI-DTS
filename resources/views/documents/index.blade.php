@@ -94,7 +94,7 @@
                     <label for="search" class="sr-only">Search</label>
                     {!! Form::text('search',null,['class'=>'form-control input-sm','placeholder'=>'Search...']) !!}
                 </div>
-                <div class="form-group">
+              <!--  <div class="form-group">
                     <label for="tags" class="sr-only">{{config('settings.tags_label_singular')}}:</label>
                     <select class="form-control select2 input-sm" name="tags[]" id="tags"
                             data-placeholder="Choose {{config('settings.tags_label_singular')}}" multiple>
@@ -105,7 +105,7 @@
                             @endcanany
                         @endforeach
                     </select>
-                </div>
+                </div> -->
                <!-- <div class="form-group">
                     <label for="status" class="sr-only">{{config('settings.tags_label_singular')}}:</label>
                     {!! Form::select('status',['0'=>"ALL",config('constants.STATUS.PENDING')=>config('constants.STATUS.PENDING'),config('constants.STATUS.APPROVED')=>config('constants.STATUS.APPROVED'),config('constants.STATUS.DECLINED')=>config('constants.STATUS.DECLINED')],null,['class'=>'form-control input-sm']) !!}
@@ -119,10 +119,10 @@
                     <thead>
                         <tr>
                             <th>Document ID</th>
-                            <th>Name</th>
+                            <th>Document Title</th>
                             <th>Status</th>
                             <th>Last Updated</th>
-                            <th>Status</th>
+                            <th>Remarks</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -133,10 +133,11 @@
                             @endcannot
                             <tr>
                                 <td><i class="fa fa-solid fa-file-lines"></i>
-                                    <a href="{{ route('documents.show', $document->id) }}" style="color: black">{{ $document->document_id }}</a>
+                                    <a href="{{ route('documents.show', $document->id) }}" style="color: #000">{{ $document->document_id }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('documents.show', $document->id) }}">{{ $document->name }}</a>
+                                    <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
+                                    <span style="font-weight: normal; font-family: Varela Round;">From: {{ $document->createdBy->name }} </span>
                                 </td>
                                 <td>
                                     @if ($document->activities->isNotEmpty())
@@ -145,7 +146,7 @@
                                         @endphp
                                             @foreach ($activities as $activity)
                                                 @if($loop->last)
-                                                    <p>{!! $activity->activity !!}</p>
+                                                    <p style="font-family: Varela Round;">{!! $activity->activity !!}</p>
                                                 @endif
                                             @endforeach
                                     @else
@@ -180,7 +181,7 @@
             </div>
         </div>
             <div class="box-footer">
-                {!! $documents->appends(request()->all())->render() !!}
+                {{ $documents->links() }}
             </div>
         </div>
     </div>

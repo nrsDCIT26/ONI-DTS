@@ -134,23 +134,27 @@ class DocumentRepository extends BaseRepository
 
     public function buildMissingDocErrors($document)
     {
-        $missigDocMsgs = [];
+        $missingDocMsgs = [];
         if (config('settings.show_missing_files_errors') == 'true' && $document->status != config('constants.STATUS.APPROVED')) {
             $fileTypes = FileType::all();
-            /** @var FileType $fileType */
             foreach ($fileTypes as $fileType) {
                 $count = $fileType->no_of_files;
                 $allFiles = $document->files->where('file_type_id', $fileType->id);
-                if ($allFiles->count() <= $count) {
-                    for ($i = $allFiles->count(); $i < $count; $i++) {
-                        $labels = explode(",", $fileType->labels)[$i];
-                        $missigDocMsgs[] = $fileType->name . " " . $labels;
+                // Check if the number of files is less than the required count
+                if ($allFiles->count() < $count) {
+                    for ($i = $allFiles->count() + 1; $i <= $count; $i++) {
+                        // Check if the file at index $i exists
+                        $fileExists = $allFiles->contains('index', $i);
+                        if (!$fileExists) {
+                            $labels = ($fileType->labels)[$i - 1]; // Adjust index for zero-based arrays
+                            $missingDocMsgs[] = $fileType->name . " " . $labels . " is missing.";
+                        }
                     }
                 }
             }
         }
-        return $missigDocMsgs;
-    }
+        return $missingDocMsgs;
+    }    
 
     public function approveDoc($document)
     {
@@ -175,7 +179,7 @@ class DocumentRepository extends BaseRepository
     }
 
     public function returnDoc($document)
-    {
+    {   
         $document->status = config('constants.STATUS.RETURNED');
         $document->save();
     }

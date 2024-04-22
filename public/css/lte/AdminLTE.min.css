@@ -49,7 +49,7 @@
 }
 
 body {
-    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Varela Round";
     font-weight: 500;
     background-color: #fff;
     overflow: auto;
@@ -184,7 +184,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 a {
-    color: #76cf82
+    color: #238b3f
 }
 
 a:hover, a:active, a:focus {

@@ -112,7 +112,7 @@ class Document extends Model
     }
     public function getIsOngoingAttribute()
     {
-        return $this->status==config('constants.STATUS.PENDING') && $this->status!=config('constants.STATUS.FORWARDED');
+        return $this->status==config('constants.STATUS.PENDING');
     }
     public function getIsVerifiedAttribute()
     {
@@ -135,7 +135,7 @@ class Document extends Model
 
     public function newActivity($activity_text,$include_document=true){
         if($include_document){
-            $activity_text .= " : ".'<a href="'.route('documents.show',$this->id).'">'.$this->name."</a>";
+            $activity_text .= "".'<a href="'.route('documents.show',$this->id).'">'."</a>";
         }
         Activity::create([
             'activity' => $activity_text,
