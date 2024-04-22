@@ -25,8 +25,8 @@
         <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
             <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-down"></i><span>Upload</span></a>
         </li>
-        <li class="{{ Request::query('status') == 'FORWARDED' ? 'active' : '' }}">
-            <a href="{{ route('documents.index', ['status' => 'FORWARDED']) }}"><i class="fa fa-forward"></i><span>In Progress</span></a>
+        <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }}">
+            <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-forward"></i><span>In Progress</span></a>
         </li>
         <li class="{{ Request::query('status') == 'APPROVED' ? 'active' : '' }}">
             <a href="{{ route('documents.index', ['status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
@@ -48,11 +48,7 @@
         </a>
         <ul class="treeview-menu">
             <li class="">
-<<<<<<< HEAD
-                <a href=""><i class="fa fa-solid fa-file-arrow-down"></i></i><span>New</span></a>
-=======
                 <a href=""><i class="fa fa-solid fa-file-arrow-down"></i></i><span>New </span></a>
->>>>>>> c2ed5dcf4bd93bb83994b8de73cfc7addb8b6e7c
             </li>
             <li class="">
                 <a href="{!! route('documents.index', ['status' => 'APPROVED']) !!}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>

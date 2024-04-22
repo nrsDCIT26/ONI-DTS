@@ -132,7 +132,7 @@
                                 @continue
                             @endcannot
                             <tr>
-                                <td><i class="fa fa-folder text-yellow"></i>
+                                <td><i class="fa fa-solid fa-file-lines"></i>
                                     <a href="{{ route('documents.show', $document->id) }}" style="color: black">{{ $document->document_id }}</a>
                                 </td>
                                 <td>
@@ -140,10 +140,14 @@
                                 </td>
                                 <td>
                                     @if ($document->activities->isNotEmpty())
-                                        @foreach ($document->activities->reverse() as $activity)
-                                            <h4>{!! $activity->activity !!}</h4>
-                                            @break
-                                        @endforeach
+                                        @php 
+                                            $activities = $document->activities->reverse(); 
+                                        @endphp
+                                            @foreach ($activities as $activity)
+                                                @if($loop->last)
+                                                    <p>{!! $activity->activity !!}</p>
+                                                @endif
+                                            @endforeach
                                     @else
                                         <span>No activity</span>
                                     @endif
