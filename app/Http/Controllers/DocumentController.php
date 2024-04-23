@@ -67,7 +67,7 @@ class DocumentController extends Controller
         $documents = $this->documentRepository->searchDocuments(
             $request->get('search'),
             $request->get('tags'),
-            $request->get('status')
+            $request->get('status'),
         );
         $tags = $this->tagRepository->all();
         return view('documents.index', compact('documents', 'tags'));
@@ -287,7 +287,7 @@ class DocumentController extends Controller
         /* Prepare final data */
         $filesData = $this->prepareFilesData($filesData);
         $this->documentRepository->saveFilesWithDoc($filesData, $document);
-        $document->newActivity(count($filesData) . " New " . ucfirst(config('settings.file_label_plural')) . " Uploaded To " . ucfirst(config('settings.document_label_singular')));
+        $document->newActivity(count($filesData) . " New " . ucfirst(config('settings.file_label_plural')) . " Uploaded");
         Flash::success(ucfirst(config('settings.file_label_plural')) . " Uploaded Successfully");
         if (!$request->ajax()) {
             return redirect()->route('documents.show', ['id' => $document->id]);

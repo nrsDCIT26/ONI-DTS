@@ -23,10 +23,10 @@
         </a>
         <ul class="treeview-menu">
         <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
-            <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-down"></i><span>Upload</span></a>
+            <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-up"></i><span>Upload</span></a>
         </li>
-        <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }}">
-            <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-forward"></i><span>In Progress</span></a>
+        <li class="{{ in_array(Request::query('status'), ['status' => 'PENDING', 'FORWARDED', 'RETURNED']) ? 'active' : '' }}">
+            <a href="{{ route('documents.index', ['status' => 'PENDING', 'FORWARDED', 'RETURNED']) }}"><i class="fa fa-forward"></i><span>In Progress</span></a>
         </li>
         <li class="{{ Request::query('status') == 'APPROVED' ? 'active' : '' }}">
             <a href="{{ route('documents.index', ['status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>

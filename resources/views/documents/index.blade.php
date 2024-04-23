@@ -127,7 +127,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($documents as $document)
+                        @foreach ($documents->sortByDesc('document_id') as $document)
                             @cannot('view', $document)
                                 @continue
                             @endcannot
@@ -137,7 +137,10 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
-                                    <span style="font-weight: normal; font-family: Varela Round;">From: {{ $document->createdBy->name }} </span>
+                                    <small class="description"><b
+                                            title="{{formatDateTime($document->created_at)}}"
+                                            data-toggle="tooltip">{{\Carbon\Carbon::parse($document->created_at)->diffForHumans()}}</b>
+                                    by <b>{{$document->createdBy->name}}</b></small>
                                 </td>
                                 <td>
                                     @if ($document->activities->isNotEmpty())
@@ -146,7 +149,7 @@
                                         @endphp
                                             @foreach ($activities as $activity)
                                                 @if($loop->last)
-                                                    <p style="font-family: Varela Round;">{!! $activity->activity !!}</p>
+                                                 <p style="font-family: Varela Round;">{!! $activity->activity !!}</p>
                                                 @endif
                                             @endforeach
                                     @else
@@ -155,8 +158,12 @@
                                 </td>
                                 <td>{{ formatDate($document->updated_at) }}</td>
                                 <td>
-                                    @if ($document->isOngoing)
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color: #E49B0F;"></i>
+                                    @if ($document->isPending)
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"></i>
+                                    @elseif ($document->isForwarded)
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-check-circle" style="color: #E49B0F;"></i>
+                                    @elseif ($document->isReturned)
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-check-circle" style="color: #E49B0F;"></i>
                                     @elseif ($document->isVerified)
                                         <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
                                     @elseif ($document->isDeclined)
