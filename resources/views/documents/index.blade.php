@@ -158,16 +158,16 @@
                                 </td>
                                 <td>{{ formatDate($document->updated_at) }}</td>
                                 <td>
-                                    @if ($document->isPending)
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"></i>
-                                    @elseif ($document->isForwarded)
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-check-circle" style="color: #E49B0F;"></i>
-                                    @elseif ($document->isReturned)
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-check-circle" style="color: #E49B0F;"></i>
-                                    @elseif ($document->isVerified)
+                                    @if ($document->isVerified)
                                         <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
                                     @elseif ($document->isDeclined)
                                         <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
+                                    @elseif ($document->status == config('constants.STATUS.PENDING')) 
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"></i>
+                                    @elseif ($document->status == config('constants.STATUS.FORWARDED')) 
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-forward" style="color:#E49B0F;"></i>
+                                    @elseif ($document->status == config('constants.STATUS.RETURNED')) 
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-back  " style="color:#E49B0F;"></i>
                                     @endif
                                 </td>
                                 <td>

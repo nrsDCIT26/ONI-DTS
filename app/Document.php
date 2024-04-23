@@ -110,20 +110,6 @@ class Document extends Model
     {
         return !empty($this->verified_by) && !empty($this->verified_at);
     }
-    public function getIsPendingAttribute()
-    {
-        return $this->status==config('constants.STATUS.PENDING');
-    }
-    
-    public function getIsForwardedAttribute()
-    {
-        return $this->status==config('constants.STATUS.FORWARDED');
-    }
-    
-    public function getIsReturnedAttribute()
-    {
-        return $this->status==config('constants.STATUS.RETURNED');
-    }
     public function getIsVerifiedAttribute()
     {
         return $this->status==config('constants.STATUS.APPROVED');
