@@ -115,7 +115,7 @@
             </div>
             <div class="box-body">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered text-center">
                     <thead>
                         <tr>
                             <th>Document ID</th>
@@ -135,7 +135,7 @@
                                 <td><i class="fa fa-solid fa-file-lines"></i>
                                     <a href="{{ route('documents.show', $document->id) }}" style="color: #000">{{ $document->document_id }}</a>
                                 </td>
-                                <td>
+                                <td style="text-align: left">
                                     <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
                                     <small class="description"><b
                                             title="{{formatDateTime($document->created_at)}}"
@@ -165,9 +165,9 @@
                                     @elseif ($document->status == config('constants.STATUS.PENDING')) 
                                         <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"></i>
                                     @elseif ($document->status == config('constants.STATUS.FORWARDED')) 
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-forward" style="color:#E49B0F;"></i>
+                                        <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"></i>
                                     @elseif ($document->status == config('constants.STATUS.RETURNED')) 
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-back  " style="color:#E49B0F;"></i>
+                                        <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"></i>
                                     @endif
                                 </td>
                                 <td>

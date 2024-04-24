@@ -25,8 +25,15 @@
         <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
             <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-up"></i><span>Upload</span></a>
         </li>
-        <li class="{{ in_array(Request::query('status'), ['status' => 'PENDING', 'FORWARDED', 'RETURNED']) ? 'active' : '' }}">
-            <a href="{{ route('documents.index', ['status' => 'PENDING', 'FORWARDED', 'RETURNED']) }}"><i class="fa fa-forward"></i><span>In Progress</span></a>
+        </li>
+        <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }}">
+        <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-bell"></i><span>New</span></a>
+        </li>
+        <li class="{{ Request::query('status') == 'FORWARDED' ? 'active' : '' }}">
+        <a href="{{ route('documents.index', ['status' => 'FORWARDED']) }}"><i class="fa fa-forward"></i><span>Forwarded</span></a>
+        </li>
+        <li class="{{ Request::query('status') == 'RETURNED' ? 'active' : '' }}">
+        <a href="{{ route('documents.index', ['status' => 'RETURNED']) }}"><i class="fa fa-forward"></i><span>Returned</span></a>
         </li>
         <li class="{{ Request::query('status') == 'APPROVED' ? 'active' : '' }}">
             <a href="{{ route('documents.index', ['status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>

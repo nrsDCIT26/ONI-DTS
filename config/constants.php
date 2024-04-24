@@ -1,13 +1,13 @@
 <?php
 return [
     'STATUS' => [
-        "PENDING" => 'PENDING',
         "ACTIVE" => 'ACTIVE',
         "BLOCK" => 'BLOCK',
-        "DECLINED" => 'DECLINED',
-        "APPROVED" => 'APPROVED',
+        "PENDING" => 'PENDING',
         "FORWARDED" => 'FORWARDED',
         "RETURNED" => 'RETURNED',
+        "APPROVED" => 'APPROVED',      
+        "DECLINED" => 'DECLINED',
     ],
     'GLOBAL_PERMISSIONS' => [ //permission is = permission=>label of permission
         'USERS' => [
