@@ -132,7 +132,7 @@
                                 @continue
                             @endcannot
                             <tr>
-                                <td><i class="fa fa-solid fa-file-lines"></i>
+                                <td> <!-- <i class="fa fa-solid fa-file-lines"></i> -->
                                     <a href="{{ route('documents.show', $document->id) }}" style="color: #000">{{ $document->document_id }}</a>
                                 </td>
                                 <td style="text-align: left">

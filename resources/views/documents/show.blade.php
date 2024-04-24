@@ -170,16 +170,20 @@
                 </ul>
             </div>
             @can('edit', $document)
+            @if(auth()->user() && $document->created_by === auth()->user()->id)
                 <a href="{{route('documents.edit', $document->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i>
                     Edit</a>
+            @endif
             @endcan
             @can('delete', $document)
                 {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style'=>'display:inline;']) !!}
+                @if(auth()->user() && $document->created_by === auth()->user()->id)
                 <button class="btn btn-danger" onclick="conformDel(this,event)" type="submit"><i
                         class="fa fa-trash"></i>
                     Delete
                 </button>
                 {!! Form::close() !!}
+                @endif
             @endcan
         </h1>
     </section>
@@ -350,9 +354,11 @@
                                 @endforeach
                             </div>
                             @can('update', [$document, $document->tags->pluck('id')])
+                            @if(auth()->user() && $document->created_by === auth()->user()->id)
                                 <a href="{{route('documents.files.create',$document->id)}}"
                                    class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
                                     Add {{ucfirst(config('settings.file_label_plural'))}}</a>
+                            @endif
                             @endcan
                         </div>
                         @can('verify', $document)
