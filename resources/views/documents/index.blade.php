@@ -159,15 +159,15 @@
                                 <td>{{ formatDate($document->updated_at) }}</td>
                                 <td>
                                     @if ($document->isVerified)
-                                        <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"></i>
+                                        <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"><p style="font-family: Varela Round;">Approved</p></i>
                                     @elseif ($document->isDeclined)
-                                        <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"></i>
+                                        <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"><p style="font-family: Varela Round;">Declined</p></i>
                                     @elseif ($document->status == config('constants.STATUS.PENDING')) 
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"></i>
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"><p style="font-family: Varela Round;">In Progress</p></i>
                                     @elseif ($document->status == config('constants.STATUS.FORWARDED')) 
-                                        <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"></i>
+                                        <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"><p style="font-family: Varela Round;">Forwarded</p></i>
                                     @elseif ($document->status == config('constants.STATUS.RETURNED')) 
-                                        <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"></i>
+                                        <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"><p style="font-family: Varela Round;">Returned</p></i>
                                     @endif
                                 </td>
                                 <td>

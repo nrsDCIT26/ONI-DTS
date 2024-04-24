@@ -192,7 +192,12 @@ a:hover, a:active, a:focus {
     text-decoration: none;
     color: #8bc8f9
 }
-
+hr.divider {
+    margin: 2px 15px;
+    width: 80%;
+    border: none;
+    border-top: 1px solid #ccc; /* Adjust the color and thickness as needed */
+}
 .page-header {
     margin: 10px 0 20px 0;
     font-size: 22px

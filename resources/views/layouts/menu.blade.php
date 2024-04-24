@@ -13,6 +13,9 @@
     </li>
 @endcan
 @can('viewAny',\App\Document::class)
+    <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
+            <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-up"></i><span>UPLOAD</span></a>
+    </li>
     <li class="treeview {{ Request::is('admin/documents*') ? 'active' : '' }}">
         <a href="{!! route('documents.index') !!}">
             <i class="fa fa-file-text-o"></i>
@@ -22,32 +25,28 @@
             </span>
         </a>
         <ul class="treeview-menu">
-        <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
-            <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-up"></i><span>Upload</span></a>
-        </li>
-        </li>
-        <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }}">
-        <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-bell"></i><span>New</span></a>
-        </li>
-        <li class="{{ Request::query('status') == 'FORWARDED' ? 'active' : '' }}">
-        <a href="{{ route('documents.index', ['status' => 'FORWARDED']) }}"><i class="fa fa-forward"></i><span>Forwarded</span></a>
-        </li>
-        <li class="{{ Request::query('status') == 'RETURNED' ? 'active' : '' }}">
-        <a href="{{ route('documents.index', ['status' => 'RETURNED']) }}"><i class="fa fa-forward"></i><span>Returned</span></a>
-        </li>
-        <li class="{{ Request::query('status') == 'APPROVED' ? 'active' : '' }}">
-            <a href="{{ route('documents.index', ['status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
-        </li>
-        <li class="{{ Request::query('status') == 'DECLINED' ? 'active' : '' }}">
-            <a href="{{ route('documents.index', ['status' => 'DECLINED']) }}"><i class="fa fa-solid fa-file-excel"></i><span>Declined</span></a>
-        </li>
+            <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }} divider">
+                <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-bell"></i><span>New</span></a>
+            </li>
+            <li class="{{ Request::query('status') == 'FORWARDED' ? 'active' : '' }}">
+                <a href="{{ route('documents.index', ['status' => 'FORWARDED']) }}"><i class="fa fa-forward"></i><span>Forwarded</span></a>
+            </li>
+            <li class="{{ Request::query('status') == 'RETURNED' ? 'active' : '' }}">
+                <a href="{{ route('documents.index', ['status' => 'RETURNED']) }}"><i class="fa fa-backward"></i><span>Returned</span></a>
+            </li>
+            <li class="{{ Request::query('status') == 'APPROVED' ? 'active' : '' }}">
+                <a href="{{ route('documents.index', ['status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
+            </li>
+            <li class="{{ Request::query('status') == 'DECLINED' ? 'active' : '' }}">
+                <a href="{{ route('documents.index', ['status' => 'DECLINED']) }}"><i class="fa fa-solid fa-file-excel"></i><span>Declined</span></a>
+            </li>
         </ul>
     </li>
 @can('user manage permission')
 @if(!auth()->user()->is_super_admin)
     <li class="treeview">
         <a href="{!! route('documents.index') !!}">
-            <i class="fa fa-file-text-o"></i>
+            <i class="fa fa-solid fa-file-arrow-down"></i>
             <span>RECEIVED FILES</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
