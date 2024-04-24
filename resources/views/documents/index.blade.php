@@ -160,7 +160,7 @@
                                 <td>
                                     @if ($document->isVerified)
                                         <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"><p style="font-family: Varela Round;">Approved</p></i>
-                                    @elseif ($document->isDeclined)
+                                    @elseif w($document->isDeclined)
                                         <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"><p style="font-family: Varela Round;">Declined</p></i>
                                     @elseif ($document->status == config('constants.STATUS.PENDING')) 
                                         <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"><p style="font-family: Varela Round;">In Progress</p></i>

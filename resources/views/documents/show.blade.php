@@ -171,8 +171,15 @@
             </div>
             @can('edit', $document)
             @if(auth()->user() && $document->created_by === auth()->user()->id)
-                <a href="{{route('documents.edit', $document->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i>
-                    Edit</a>
+                @if ($document->isVerified)
+                    @php
+                        $disabled = $document->status == config('constants.STATUS.APPROVED') ? 'disabled' : '';
+                    @endphp
+                @else
+                <a href="{{ route('documents.edit', $document->id) }}" class="btn btn-primary">
+                        <i class="fa fa-edit"></i> Edit
+                </a>
+                @endif
             @endif
             @endcan
             @can('delete', $document)
@@ -355,9 +362,15 @@
                             </div>
                             @can('update', [$document, $document->tags->pluck('id')])
                             @if(auth()->user() && $document->created_by === auth()->user()->id)
+                                @if ($document->isVerified)
+                                    @php
+                                        $disabled = $document->status == config('constants.STATUS.APPROVED') ? 'disabled' : '';
+                                    @endphp
+                                @else
                                 <a href="{{route('documents.files.create',$document->id)}}"
                                    class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
                                     Add {{ucfirst(config('settings.file_label_plural'))}}</a>
+                                @endif
                             @endif
                             @endcan
                         </div>
