@@ -128,7 +128,11 @@ class Document extends Model
         return $this->hasMany(Activity::class,'document_id', 'id')
             ->orderByDesc('id');
     }
-
+    public function receivers()
+    {
+        return $this->belongsToMany(User::class, 'received_documents', 'document_id', 'receiver_id');
+    }
+    
     public function newActivity($activity_text,$include_document=true){
         if($include_document){
             $activity_text .= "".'<a href="'.route('documents.show',$this->id).'">'."</a>";

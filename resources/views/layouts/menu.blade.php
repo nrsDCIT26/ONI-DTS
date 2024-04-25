@@ -44,27 +44,30 @@
     </li>
 @can('user manage permission')
 @if(!auth()->user()->is_super_admin)
-    <li class="treeview">
-        <a href="{!! route('documents.index') !!}">
+    <li class="treeview {{ Request::is('admin/documents*') ? '' : 'active' }}">
+        <a href="#">
             <i class="fa fa-solid fa-file-arrow-down"></i>
             <span>RECEIVED FILES</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li class="">
-                <a href=""><i class="fa fa-solid fa-file-arrow-down"></i></i><span>New </span></a>
+            <li class="{{ Request::query('receiver_id') == auth()->id() ? 'active' : '' }}">
+                <a href="{{ route('documents.index', ['receiver_id' => auth()->id(), 'created_at' => \Carbon\Carbon::now()->format('Y-m-d')]) }}">
+                    <i class="fa fa-solid fa-file-arrow-down"></i>
+                    <span>New</span>
+                </a>
             </li>
-            <li class="">
-                <a href="{!! route('documents.index', ['status' => 'APPROVED']) !!}"><i class="fa fa-solid fa-circle-check"></i><span>Approved</span></a>
-            </li>
-            <li class="">
-                <a href="{!! route('documents.index', ['status' => 'DECLINED']) !!}"><i class="fa fa-solid fa-file-excel"></i><span>Declined</span></a>
+            <li class="{{ Request::query('receiver_id') == auth()->id() ? 'active' : '' }}">
+                <a href="{{ route('documents.index', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}">
+                    <i class="fa fa-solid fa-circle-check"></i>
+                    <span>Done</span>
+                </a>
             </li>
         </ul>
     </li>
-    @endif
+@endif
 @endcan
 @endcan
 @if(auth()->user()->is_super_admin)

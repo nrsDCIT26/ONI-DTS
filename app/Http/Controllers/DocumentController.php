@@ -23,6 +23,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\DB;
 use Laracasts\Flash\Flash;
 use Spatie\Permission\Models\Permission;
 
@@ -61,17 +62,31 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', Document::class);
+        
+        // Get the currently authenticated user's id
+        $userId = auth()->id();
+        
+        // Fetch received documents for the current user
+        $rcvDocuments = DB::table('received_documents')
+                        ->where('receiver_id', $userId)
+                        ->get();
+        
+        // Paginate documents
         $documents = $this->documentRepository->searchDocuments(
             $request->get('search'),
             $request->get('tags'),
-            $request->get('status'),
+            $request->get('status')
         );
+        
         $tags = $this->tagRepository->all();
-        return view('documents.index', compact('documents', 'tags'));
+        
+        return view('documents.index', compact('rcvDocuments', 'documents', 'tags'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -82,8 +97,9 @@ class DocumentController extends Controller
     {
         $this->authorize('create', Document::class);
         $tags = $this->tagRepository->all();
+        $users = User::where('id', '!=', auth()->id())->get();
         $customFields = $this->customFieldRepository->getForModel('documents');
-        return view('documents.create', compact('tags', 'customFields'));
+        return view('documents.create', compact('tags', 'customFields','users'));
     }
 
     /**
@@ -110,12 +126,36 @@ class DocumentController extends Controller
         Flash::success(ucfirst(config('settings.document_label_singular')) . " Saved Successfully");
         $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Created");
     
-        //create permission for new document
+        // Create permission for new document
         foreach (config('constants.DOCUMENT_LEVEL_PERMISSIONS') as $perm_key => $perm) {
             $permissionName = $perm_key . $document->id;
             // Check if the permission already exists
             if (!Permission::where('name', $permissionName)->exists()) {
                 Permission::create(['name' => $permissionName]);
+                
+                // Add the creator as a receiver directly into the database
+                $receiverId = Auth::id(); // Get the ID of the current user
+                DB::table('received_documents')->insert([
+                    'document_id' => $document->id,
+                    'creator_id' => $receiverId,
+                    'sender_id' => $receiverId, // Assuming the creator is also the sender
+                    'receiver_id' => $receiverId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+    
+                // Get tag-wise users and insert them into received_documents table
+                $tagWiseUsers = $this->getTagWiseUsersPermissionsForDoc($document);
+                foreach ($tagWiseUsers as $tagWiseUser) {
+                    DB::table('received_documents')->insert([
+                        'document_id' => $document->id,
+                        'creator_id' => $receiverId, // Assuming the creator is also the sender
+                        'sender_id' => $receiverId, // Assuming the creator is also the sender
+                        'receiver_id' => $tagWiseUser['user']->id,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
         }        
     
@@ -123,7 +163,24 @@ class DocumentController extends Controller
             return redirect()->route('documents.files.create', $document->id);
         }
         return redirect()->route('documents.index');
-    }    
+    }
+    
+    public function getTagWiseUsersPermissionsForDoc($document)
+    {
+        $tagWiseUsers = [];
+        foreach ($document->tags as $tag) {
+            foreach (config('constants.TAG_LEVEL_PERMISSIONS') as $perm_key => $perm) {
+                $usersTagWise = User::permission([$perm_key . $tag->id])->get();
+                foreach ($usersTagWise as $user) {
+                    $tagWiseUsers[] = [
+                        'tag' => $tag,
+                        'user' => $user
+                    ];
+                }
+            }
+        }
+        return $tagWiseUsers;
+    }
 
     /**
      * Display the specified resource.

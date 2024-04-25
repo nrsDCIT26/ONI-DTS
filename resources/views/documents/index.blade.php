@@ -188,7 +188,7 @@
             </div>
         </div>
             <div class="box-footer">
-                {{ $documents->links() }}
+                {!! $documents->appends(request()->all())->render() !!}
             </div>
         </div>
     </div>
