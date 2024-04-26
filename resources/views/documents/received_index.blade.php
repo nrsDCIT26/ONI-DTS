@@ -116,7 +116,7 @@
             <div class="box-body">
             <div class="table-responsive">
                 <table class="table table-bordered text-center">
-                    <thead>
+                    <thead class="table-dark">
                         <tr>
                             <th>Document ID</th>
                             <th>Document Title</th>
@@ -240,10 +240,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
             <div class="box-footer">
-                {!! $documents->appends(request()->all())->render() !!}
+                {{ $documents->links() }}
             </div>
         </div>
-    </div>
 @endsection

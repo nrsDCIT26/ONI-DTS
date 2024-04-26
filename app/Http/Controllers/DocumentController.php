@@ -80,7 +80,7 @@ class DocumentController extends Controller
             $request->get('search'),
             $request->get('tags'),
             $request->get('status')
-        );
+         );
         
         $tags = $this->tagRepository->all();
         

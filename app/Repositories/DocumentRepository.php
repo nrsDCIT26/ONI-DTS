@@ -65,24 +65,29 @@ class DocumentRepository extends BaseRepository
      * @param bool $paginate
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection|array
      */
-    public function searchDocuments($search=null,$tag=[],$status=null,$paginate=true)
+    public function searchDocuments($search = null, $tag = [], $status = null, $paginate = true, $perPage = 25)
     {
         $query = $this->allQuery($search);
-        if(!empty($tag)){
+
+        if (!empty($tag)) {
             $query->whereHas('tags', function ($q) use ($tag) {
                 $q->whereIn('tag_id', $tag);
             });
         }
-        if(!empty($status)){
-            $query->where('status',$status);
+
+        if (!empty($status)) {
+            $query->where('status', $status);
         }
-        $query = $query->with('tags');
-        debug($query->toSql());
-        if($paginate)
-            return $query->paginate(25);
-        else
+
+        $query->with('tags');
+
+        if ($paginate) {
+            return $query->paginate($perPage); // Applying pagination
+        } else {
             return $query->get();
+        }
     }
+
 
     public function createWithTags($data)
     {

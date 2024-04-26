@@ -62,7 +62,7 @@
             <li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
                 <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}">
                     <i class="fa fa-solid fa-folder-tree"></i>
-                    <span>All Inboxes</span>
+                    <span>Approved Documents</span>
                 </a>
             </li>
             </ul>
