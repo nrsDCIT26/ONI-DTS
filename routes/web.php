@@ -44,7 +44,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check_block']], func
     Route::resource('tags', TagController::class);
 
     Route::resource('documents', DocumentController::class);
-    Route::get('document-received/',[DocumentController::class,'index'])->name('documents.received');
+    Route::get('document-received/',[DocumentController::class,'recievedindex'])->name('documents.received');
+    Route::get('document-upload/',[DocumentController::class,'create'])->name('documents.upload');
     Route::post('document-verify/{id}',[DocumentController::class,'verify'])->name('documents.verify');
     Route::post('document-store-permission/{id}',[DocumentController::class,'storePermission'])->name('documents.store-permission');
     Route::post('document-forward/{id}',[DocumentController::class,'storePermissionAndVerify'])->name('documents.forward');

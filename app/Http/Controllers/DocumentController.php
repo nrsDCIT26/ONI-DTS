@@ -86,7 +86,29 @@ class DocumentController extends Controller
         
         return view('documents.index', compact('rcvDocuments', 'documents', 'tags'));
     }
-
+    public function recievedindex(Request $request)
+    {
+        $this->authorize('viewAny', Document::class);
+        
+        // Get the currently authenticated user's id
+        $userId = auth()->id();
+        
+        // Fetch received documents for the current user
+        $rcvDocuments = DB::table('received_documents')
+                        ->where('receiver_id', $userId)
+                        ->get();
+        
+        // Paginate documents
+        $documents = $this->documentRepository->searchDocuments(
+            $request->get('search'),
+            $request->get('tags'),
+            $request->get('status')
+        );
+        
+        $tags = $this->tagRepository->all();
+        
+        return view('documents.received_index', compact('rcvDocuments', 'documents', 'tags'));
+    }
 
     /**
      * Show the form for creating a new resource.

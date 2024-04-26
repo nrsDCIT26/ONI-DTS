@@ -1,8 +1,8 @@
-<li class="{{ Request::is('admin/home*') ? 'active' : '' }}">
+<li class="{{ Request::is('admin/home*') ? 'active' : ''}}">
     <a href="{!! route('admin.dashboard') !!}"><i class="fa fa-home"></i><span> HOME</span></a>
 </li>
 @can('read users')
-    <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
+    <li class="{{ Request::is('admin/users*') ? 'active' : ''}}">
         <a href="{!! route('users.index') !!}"><i class="fa fa-users"></i><span> USERS</span></a>
     </li>
 @endcan
@@ -14,12 +14,10 @@
 @endcan
 @can('viewAny',\App\Document::class)
     <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
-            <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-up"></i><span>UPLOAD</span></a>
+            <a href="{{ route('documents.upload') }}"><i class="fa fa-solid fa-file-arrow-up"></i><span>UPLOAD</span></a>
     </li>
-@endcan
-@can('viewAny',\App\Document::class)
-    <li class="treeview {{ Request::is('admin/documents*') ? 'active' : '' }}">
-        <a href="{!! route('documents.index') !!}">
+    <li class="treeview {{ Request::is('admin/documents*') ? 'active' : ''  }}">
+        <a>
             <i class="fa fa-file-text-o"></i>
             <span>DOCUMENTS</span>
             <span class="pull-right-container">
@@ -27,7 +25,7 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }} divider">
+            <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }}">
                 <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-solid fa-paper-plane"></i></i><span>Sent</span></a>
             </li>
             <li class="{{ Request::query('status') == 'FORWARDED' ? 'active' : '' }}">
@@ -47,22 +45,26 @@
 @endcan
 @can('user manage permission')
     @if(!auth()->user()->is_super_admin)
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-solid fa-file-arrow-down"></i>
+        <li class="treeview {{ Request::is('admin/document-received*') ? 'active' : ''  }}">
+            <a>
+                <i class="fa fa-file-text-o"></i>
                 <span>RECEIVED FILES</span>
-                    <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+            <li class="{{ Request::query('status') == '' ? 'active' : '' }}">
+                <a href="{{ route('documents.received',  ['receiver_id' => auth()->id(), 'created_at' => \Carbon\Carbon::now()->format('Y-m-d')]) }}">
+                    <i class="fa fa-solid fa-inbox"></i><span> Inbox</span>
                 </a>
-                <ul class="treeview-menu">
-                <li class="{{ Request::query('receiver_id') == auth()->id() }}">
-                <a href="{{ route('documents.received') }}"><i class="fa fa-solid fa-inbox"></i><span> Inbox</span></a>
             </li>
-                    <li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
-                        <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}"><i class="fa fa-solid fa-folder-tree"></i></i>
-                    <span>All Inboxes</span></a>
-                </li>
+            <li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
+                <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}">
+                    <i class="fa fa-solid fa-folder-tree"></i>
+                    <span>All Inboxes</span>
+                </a>
+            </li>
             </ul>
         </li>
     @endif
