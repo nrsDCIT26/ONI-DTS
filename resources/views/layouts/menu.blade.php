@@ -28,7 +28,7 @@
         </a>
         <ul class="treeview-menu">
             <li class="{{ Request::query('status') == 'PENDING' ? 'active' : '' }} divider">
-                <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-bell"></i><span>New</span></a>
+                <a href="{{ route('documents.index', ['status' => 'PENDING']) }}"><i class="fa fa-solid fa-paper-plane"></i></i><span>Sent</span></a>
             </li>
             <li class="{{ Request::query('status') == 'FORWARDED' ? 'active' : '' }}">
                 <a href="{{ route('documents.index', ['status' => 'FORWARDED']) }}"><i class="fa fa-forward"></i><span>Forwarded</span></a>
@@ -57,11 +57,11 @@
                 </a>
                 <ul class="treeview-menu">
                 <li class="{{ Request::query('receiver_id') == auth()->id() }}">
-                <a href="{{ route('documents.index', ['status' => 'FORWARDED']) }}"><i class="fa fa-forward"></i><span>Forwarded</span></a>
+                <a href="{{ route('documents.received') }}"><i class="fa fa-solid fa-inbox"></i><span> Inbox</span></a>
             </li>
                     <li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
-                        <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i>
-                    <span>Done</span></a>
+                        <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}"><i class="fa fa-solid fa-folder-tree"></i></i>
+                    <span>All Inboxes</span></a>
                 </li>
             </ul>
         </li>
