@@ -16,6 +16,8 @@
     <li class="{{ Request::is('admin/documents/create*') ? 'active' : '' }}">
             <a href="{{ route('documents.create') }}"><i class="fa fa-solid fa-file-arrow-up"></i><span>UPLOAD</span></a>
     </li>
+@endcan
+@can('viewAny',\App\Document::class)
     <li class="treeview {{ Request::is('admin/documents*') ? 'active' : '' }}">
         <a href="{!! route('documents.index') !!}">
             <i class="fa fa-file-text-o"></i>
@@ -42,33 +44,28 @@
             </li>
         </ul>
     </li>
-@can('user manage permission')
-@if(!auth()->user()->is_super_admin)
-    <li class="treeview {{ Request::is('admin/documents*') ? '' : 'active' }}">
-        <a href="#">
-            <i class="fa fa-solid fa-file-arrow-down"></i>
-            <span>RECEIVED FILES</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-            <li class="{{ Request::query('receiver_id') == auth()->id() ? 'active' : '' }}">
-                <a href="{{ route('documents.index', ['receiver_id' => auth()->id(), 'created_at' => \Carbon\Carbon::now()->format('Y-m-d')]) }}">
-                    <i class="fa fa-solid fa-file-arrow-down"></i>
-                    <span>New</span>
-                </a>
-            </li>
-            <li class="{{ Request::query('receiver_id') == auth()->id() ? 'active' : '' }}">
-                <a href="{{ route('documents.index', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}">
-                    <i class="fa fa-solid fa-circle-check"></i>
-                    <span>Done</span>
-                </a>
-            </li>
-        </ul>
-    </li>
-@endif
 @endcan
+@can('user manage permission')
+    @if(!auth()->user()->is_super_admin)
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-solid fa-file-arrow-down"></i>
+                <span>RECEIVED FILES</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                <li class="{{ Request::query('receiver_id') == auth()->id() }}">
+                <a href="{{ route('documents.index', ['status' => 'FORWARDED']) }}"><i class="fa fa-forward"></i><span>Forwarded</span></a>
+            </li>
+                    <li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
+                        <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}"><i class="fa fa-solid fa-circle-check"></i>
+                    <span>Done</span></a>
+                </li>
+            </ul>
+        </li>
+    @endif
 @endcan
 @if(auth()->user()->is_super_admin)
     <li class="treeview {{ Request::is('admin/advanced*') ? 'active' : '' }}">
