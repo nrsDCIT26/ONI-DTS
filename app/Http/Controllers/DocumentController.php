@@ -160,7 +160,7 @@ class DocumentController extends Controller
                 DB::table('received_documents')->insert([
                     'document_id' => $document->id,
                     'creator_id' => $receiverId,
-                    'sender_id' => $receiverId, 
+                    'sender_id' => $receiverId, // Assuming the creator is also the sender
                     'receiver_id' => $receiverId,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -171,8 +171,8 @@ class DocumentController extends Controller
                 foreach ($tagWiseUsers as $tagWiseUser) {
                     DB::table('received_documents')->insert([
                         'document_id' => $document->id,
-                        'creator_id' => $receiverId, 
-                        'sender_id' => $receiverId, 
+                        'creator_id' => $receiverId, // Assuming the creator is also the sender
+                        'sender_id' => $receiverId, // Assuming the creator is also the sender
                         'receiver_id' => $tagWiseUser['user']->id,
                         'created_at' => now(),
                         'updated_at' => now(),
