@@ -148,62 +148,34 @@ class DocumentController extends Controller
         Flash::success(ucfirst(config('settings.document_label_singular')) . " Saved Successfully");
         $document->newActivity(ucfirst(config('settings.document_label_singular')) . " Created");
     
-        // Create permission for new document
         foreach (config('constants.DOCUMENT_LEVEL_PERMISSIONS') as $perm_key => $perm) {
             $permissionName = $perm_key . $document->id;
-            // Check if the permission already exists
+    
             if (!Permission::where('name', $permissionName)->exists()) {
                 Permission::create(['name' => $permissionName]);
-                
-                // Add the creator as a receiver directly into the database
-                $receiverId = Auth::id(); // Get the ID of the current user
-                DB::table('received_documents')->insert([
-                    'document_id' => $document->id,
-                    'creator_id' => $receiverId,
-                    'sender_id' => $receiverId, // Assuming the creator is also the sender
-                    'receiver_id' => $receiverId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-    
-                // Get tag-wise users and insert them into received_documents table
-                $tagWiseUsers = $this->getTagWiseUsersPermissionsForDoc($document);
-                foreach ($tagWiseUsers as $tagWiseUser) {
-                    DB::table('received_documents')->insert([
-                        'document_id' => $document->id,
-                        'creator_id' => $receiverId, // Assuming the creator is also the sender
-                        'sender_id' => $receiverId, // Assuming the creator is also the sender
-                        'receiver_id' => $tagWiseUser['user']->id,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                }
-            }
-        }        
+            }      
+        } 
+
+        $receiverId = Auth::id();  
+               
+        foreach ($document->tags as $tag) {
+            $receiver_id = $tag->id;
+        }
+            DB::table('received_documents')->insert([
+                'document_id' => $document->id,
+                'creator_id' => $receiverId, 
+                'sender_id' => $receiverId, 
+                'receiver_id' => $receiver_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
     
         if ($request->has('savnup')) {
             return redirect()->route('documents.files.create', $document->id);
         }
         return redirect()->route('documents.index');
     }
-    
-    public function getTagWiseUsersPermissionsForDoc($document)
-    {
-        $tagWiseUsers = [];
-        foreach ($document->tags as $tag) {
-            foreach (config('constants.TAG_LEVEL_PERMISSIONS') as $perm_key => $perm) {
-                $usersTagWise = User::permission([$perm_key . $tag->id])->get();
-                foreach ($usersTagWise as $user) {
-                    $tagWiseUsers[] = [
-                        'tag' => $tag,
-                        'user' => $user
-                    ];
-                }
-            }
-        }
-        return $tagWiseUsers;
-    }
-
+        
     /**
      * Display the specified resource.
      *

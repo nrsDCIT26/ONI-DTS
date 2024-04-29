@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2024 at 03:11 AM
+-- Generation Time: Apr 29, 2024 at 07:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -173,7 +173,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2019_11_18_143946_create_permission_tables', 1),
 (12, '2019_11_20_155709_create_activities_table', 1),
 (13, '2019_11_21_085158_update_custom_fields_add_field', 1),
-(14, '2019_11_21_122845_update_activities_add_field_document_id', 1);
+(14, '2019_11_21_122845_update_activities_add_field_document_id', 1),
+(15, '2024_04_29_090156_create_received_documents_table', 2);
 
 -- --------------------------------------------------------
 
@@ -306,7 +307,7 @@ CREATE TABLE `received_documents` (
   `document_id` int(10) UNSIGNED NOT NULL,
   `creator_id` bigint(20) UNSIGNED NOT NULL,
   `sender_id` bigint(20) UNSIGNED NOT NULL,
-  `receiver_id` bigint(20) UNSIGNED NOT NULL,
+  `receiver_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -559,7 +560,8 @@ ALTER TABLE `received_documents`
   ADD PRIMARY KEY (`id`),
   ADD KEY `received_documents_document_id_foreign` (`document_id`),
   ADD KEY `received_documents_creator_id_foreign` (`creator_id`),
-  ADD KEY `received_documents_sender_id_foreign` (`sender_id`);
+  ADD KEY `received_documents_sender_id_foreign` (`sender_id`),
+  ADD KEY `received_documents_receiver_id_foreign` (`receiver_id`);
 
 --
 -- Indexes for table `roles`
@@ -654,7 +656,7 @@ ALTER TABLE `file_types`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -731,6 +733,7 @@ ALTER TABLE `files`
 ALTER TABLE `received_documents`
   ADD CONSTRAINT `received_documents_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `received_documents_document_id_foreign` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `received_documents_receiver_id_foreign` FOREIGN KEY (`receiver_id`) REFERENCES `tags` (`id`),
   ADD CONSTRAINT `received_documents_sender_id_foreign` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`);
 
 --
