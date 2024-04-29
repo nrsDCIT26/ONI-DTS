@@ -128,7 +128,7 @@
                     </thead>
                     <tbody>
                         @foreach ($documents->sortByDesc('document_id') as $document)
-                        @if (\Carbon\Carbon::parse($document->created_at)->format('Y-m-d') == \Carbon\Carbon::now()->subDays(1)->format('Y-m-d') && Request::query('status') == '')
+                        
                         @cannot('view', $document)
                             @continue
                         @endcannot
@@ -183,7 +183,7 @@
                                     @endcan
                                 </td>
                             </tr>
-                            @elseif (Request::query('status') == 'APPROVED')
+                            @if (Request::query('status') == 'APPROVED')
                             <tr>
                                 <td> <!-- <i class="fa fa-solid fa-file-lines"></i> -->
                                     <a href="{{ route('documents.show', $document->id) }}" style="color: #000">{{ $document->document_id }}</a>
