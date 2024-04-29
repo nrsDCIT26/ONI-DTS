@@ -128,6 +128,7 @@
                     </thead>
                     <tbody>
                         @foreach ($documents->sortByDesc('document_id') as $document)
+                            @if(auth()->user() && $document->created_by === auth()->user()->id)
                             @cannot('view', $document)
                                 @continue
                             @endcannot
@@ -182,13 +183,14 @@
                                     @endcan
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
             <div class="box-footer">
-                {!! $documents->appends(request()->all())->render() !!}
+            {!! $documents->links() !!}
             </div>
         </div>
     </div>
