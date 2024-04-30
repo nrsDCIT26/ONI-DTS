@@ -147,7 +147,6 @@
     <section class="content-header" style="margin-bottom: 27px;">
         <h1 class="pull-left">
             {{ucfirst(config('settings.document_label_singular'))}}
-            <small>{{$document->name}}</small>
         </h1>
         <h1 class="pull-right" style="margin-bottom: 5px;">
             <div class="dropdown" style="display: inline-block">
@@ -206,17 +205,34 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>{{ucfirst(config('settings.document_label_singular'))}} Name:</label>
-                            <p>{{$document->name}}</p>
+                            <p style="font-family: Varela Round; font-weight: regular;">{{$document->name}}</p>
                         </div>
-                        <div class="form-group">
-                            <label>{{ucfirst(config('settings.tags_label_plural'))}}:</label>
-                            <p>
-                                @foreach ($document->tags as $tag)
-                                    <small class="label"
-                                           style="background-color: {{$tag->color}};">{{$tag->name}}</small>
-                                @endforeach
-                            </p>
-                        </div>
+                       <div class="form-group"> 
+                       <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Received By:</th>
+                                </tr>
+                                </thead>
+                                    <tbody>
+                                    @if (count($thisDocPermissionUsers)==0 && count($tagWisePermList)==0)
+                                        <tr>
+                                            <td> colspan="2">No record found</td>
+                                        </tr>
+                                    @endif
+                                    @foreach($thisDocPermissionUsers as $perm)
+                                        <tr>
+                                            <td style="font-family: Varela Round; font-weight: regular; font-size: 12px">{{$perm['user']->name}}</td>
+                                        </tr>
+                                    @endforeach
+                                    @foreach ($tagWisePermList as $perm)
+                                        <tr>
+                                            <td style="font-family: Varela Round; font-weight: regular; font-size: 12px">{{$perm['user']->name}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div> 
                         @foreach ($document->custom_fields??[] as $custom_field_name=>$custom_field_value)
                             <div class="form-group">
                                 {!! Form::label($custom_field_name, Str::title(str_replace('_',' ',$custom_field_name)).":") !!}
@@ -224,8 +240,13 @@
                             </div>
                         @endforeach
                         <div class="form-group">
+                        @if ($document->description == null )
                             <label>Description:</label>
-                            <p>{!! $document->description !!}</p>
+                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px">N/A</p>
+                        @else
+                            <label>Description:</label>
+                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px">{!! $document->description !!}</p>
+                        @endif
                         </div>
                         <div class="form-group">
                             <label>Status:</label>
@@ -240,17 +261,14 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <label>Created By:</label> {{$document->createdBy->name}}
-                        </div>
-                        <div class="form-group">
                             <label>Created At:</label>
-                            <p>{!! formatDateTime($document->created_at) !!} <br>
+                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px">{!! formatDateTime($document->created_at) !!} <br>
                                 ({{\Carbon\Carbon::parse($document->created_at)->diffForHumans()}})
                             </p>
                         </div>
                         <div class="form-group">
                             <label>Last Updated:</label>
-                            <p>{!! formatDateTime($document->updated_at) !!} <br>
+                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px;">{!! formatDateTime($document->updated_at) !!} <br>
                                 ({{\Carbon\Carbon::parse($document->updated_at)->diffForHumans()}})
                             </p> 
                         </div>

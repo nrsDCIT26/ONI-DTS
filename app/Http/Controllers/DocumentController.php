@@ -195,7 +195,7 @@ class DocumentController extends Controller
         // $missigDocMsgs = $this->documentRepository->buildMissingDocErrors($document);
         $dataToRet = compact('document');
 
-        if (auth()->user()->can('user manage permission')) {
+        if (auth()->user()->can('user manage permission') || auth()->user()->can('view', $document)) {
             $users = User::where('id', '!=', 1)->get();
             $thisDocPermissionUsers = $this->permissionRepository->getUsersWiseDocumentLevelPermissionsForDoc($document);
             //Tag Level permission
