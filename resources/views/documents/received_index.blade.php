@@ -119,7 +119,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>Document ID</th>
-                            <th>Document Title</th>
+                            <th>Title</th>
                             <th>Status</th>
                             <th>Last Updated</th>
                             <th>Remarks</th>

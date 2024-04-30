@@ -320,7 +320,7 @@
                                             </div>
                                             <div class="box-header">
                                                 <div class="user-block">
-                                                    <span class="label label-default">{{$file->fileType->name}}</span>
+                                                  
                                                     <span class="username" style="cursor:pointer;"
                                                           onclick="showFileModal({{json_encode($file)}})">{{$file->name}}</span>
                                                     <small class="description text-gray"><b

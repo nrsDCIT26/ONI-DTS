@@ -26,7 +26,7 @@
                             {!! Form::file('files[@{{index}}][file]', ['style'=>'margin:0 auto;','class'=>'image-picker-input']) !!}
                         </div>
                     </div>
-                    {!! Form::bsSelect('files[@{{index}}][file_type_id]', $fileTypes, null, ['class'=>'form-control'], ucfirst(config('settings.file_label_singular'))." Type") !!}
+                    {!! Form::bsSelect('files[@{{index}}][file_type_id]', $fileTypes, null, ['class'=>'form-control'], ('Document')." Type") !!}
                     {!! Form::bsText('files[@{{index}}][name]', null, [], ucfirst(config('settings.file_label_singular'))." Name") !!}
                     @foreach ($customFields as $customField)
                         {!! Form::bsText("files[@{{index}}][custom_fields][$customField->name]",null,['class'=>'form-control typeahead','data-source'=>json_encode($customField->suggestions),'autocomplete'=>is_array($customField->suggestions)?'off':'on'], Str::title(str_replace('_',' ',$customField->name))) !!}
