@@ -59,12 +59,12 @@
                     <i class="fa fa-solid fa-inbox"></i><span> Inbox</span>
                 </a>
             </li>
-            <li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
+           {{--<li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
                 <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}">
                     <i class="fa fa-solid fa-folder-tree"></i>
-                    <span>Approved Documents</span>
+                    <span>??</span>
                 </a>
-            </li>
+            </li> --}}
             </ul>
         </li>
     @endif

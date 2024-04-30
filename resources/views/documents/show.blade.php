@@ -286,11 +286,6 @@
                                             aria-expanded="false">Verification</a></li>
                         @endcan
                         <li class=""><a href="#tab_activity" data-toggle="tab" aria-expanded="false">Tracking Status</a></li>
-                        @can('user manage permission')
-                            <li class=""><a href="#tab_permissions" data-toggle="tab"
-                                            aria-expanded="false">Permission</a>
-                            </li>
-                        @endcan
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_files">
