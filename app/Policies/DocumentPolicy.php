@@ -98,7 +98,7 @@ class DocumentPolicy
      */
     public function store(User $user, $tags)
     {
-        if ($user->can('create documents') || $user->can('user manage permission')) {
+        if ($user->can('create documents')) {
             return true;
         }
 

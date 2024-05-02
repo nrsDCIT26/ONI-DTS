@@ -190,7 +190,7 @@ class DocumentController extends Controller
         if (empty($document)) {
             abort(404);
         }
-        $this->authorize('view', $document);
+        $this->authorize('viewAny', $document);
 
         // $missigDocMsgs = $this->documentRepository->buildMissingDocErrors($document);
         $dataToRet = compact('document');
