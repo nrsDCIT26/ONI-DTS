@@ -311,7 +311,7 @@ class DocumentController extends Controller
         } else {
             abort(404);
         }
-        $document->newActivity(ucfirst(config('settings.document_label_singular')) . " $msg $comment");
+        $document->newActivity(" $msg $comment");
     
         Flash::success(ucfirst(config('settings.document_label_singular')) . " $msg Successfully");
         return redirect()->back();
@@ -435,7 +435,7 @@ class DocumentController extends Controller
         } else {
             abort(404);
         }
-        $document->newActivity(ucfirst(config('settings.document_label_singular')) . " $msg $comment");
+        $document->newActivity(" $msg $comment");
     
         Flash::success(ucfirst(config('settings.document_label_singular')) . " $msg Successfully");
         return redirect()->back();

@@ -8,15 +8,11 @@
         @endforeach
     @else
         <div class="form-group col-sm-6 ">
-            <label for="tags[]">{{ucfirst(config('settings.tags_label_plural'))}}</label>
-            <select class="form-control select2" id="tags"
-                    name="tags[]"
-                    multiple>
+            <label for="tags">{{ucfirst(config('settings.tags_label_plural'))}}</label>
+            <select class="form-control select2" id="tags" name="tags">
+                        <option value="">Send To:</option>
                 @foreach($tags as $tag)
-                    @canany (['update documents','update documents in tag '.$tag->id])
-                        <option
-                            value="{{$tag->id}}" {{(in_array($tag->id,old('tags', optional(optional(optional($document)->tags)->pluck('id'))->toArray() ?? [] )))?"selected":"" }}>{{$tag->name}}</option>
-                    @endcanany
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -25,11 +21,9 @@
     <div class="form-group col-sm-6 {{ $errors->has("tags") ? 'has-error' :'' }}">
         <label for="tags">{{ucfirst(config('settings.tags_label_plural'))}}</label>
         <select class="form-control select2" id="tags" name="tags">
+                    <option value="">Send To:</option>
             @foreach($tags as $tag)
-                @canany (['create documents','create documents in tag '.$tag->id])
-                    <option
-                        value="{{$tag->id}}">{{$tag->name}}</option>
-                @endcanany
+                    <option value="{{$tag->id}}">{{$tag->name}}</option>
             @endforeach
         </select>
         {!! $errors->first("tags",'<span class="help-block">:message</span>') !!}

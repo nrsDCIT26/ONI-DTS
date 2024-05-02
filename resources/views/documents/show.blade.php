@@ -217,7 +217,7 @@
                                     <tbody>
                                     @if (count($thisDocPermissionUsers)==0 && count($tagWisePermList)==0)
                                         <tr>
-                                            <td> colspan="2">No record found</td>
+                                            <td style="font-family: Varela Round; font-weight: regular; font-size: 12px">No user found in tag</td>
                                         </tr>
                                     @endif
                                     @foreach($thisDocPermissionUsers as $perm)
@@ -561,7 +561,7 @@
                                         <tbody>
                                         @if (count($thisDocPermissionUsers)==0)
                                             <tr>
-                                                <td colspan="2">No record found</td>
+                                                <td style="font-family: Varela Round; font-weight: regular; font-size: 12px">No user found in tag</td>
                                             </tr>
                                         @endif
                                         @foreach($thisDocPermissionUsers as $perm)
@@ -599,7 +599,7 @@
                                         <tbody>
                                         @if (count($tagWisePermList)==0)
                                             <tr>
-                                                <td colspan="3">No record found</td>
+                                                <td style="font-family: Varela Round; font-weight: regular; font-size: 12px">No user found in tag</td>
                                             </tr>
                                         @endif
                                         @foreach ($tagWisePermList as $perm)
@@ -628,7 +628,7 @@
                                         <tbody>
                                         @if (count($globalPermissionUsers)==0)
                                             <tr>
-                                                <td colspan="2">No record found</td>
+                                                <td style="font-family: Varela Round; font-weight: regular; font-size: 12px">No user found in tag</td>
                                             </tr>
                                         @endif
                                         @foreach ($globalPermissionUsers as $perm)
