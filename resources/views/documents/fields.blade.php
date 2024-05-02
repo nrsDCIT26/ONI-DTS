@@ -12,7 +12,7 @@
             <select class="form-control select2" id="tags"name="tags">
                     <option value="">Select User:</option>
                 @foreach($tags as $tag)
-                    @canany (['create documents','create documents in tag '.$tag->id])
+                    @canany (['create documents', 'user manage permission','create documents in tag '.$tag->id])
                         <option value="{{$tag->id}}">{{$tag->name}}</option>
                     @endcanany
                 @endforeach
@@ -25,7 +25,7 @@
         <select class="form-control select2" id="tags" name="tags">
                     <option value="">Select User:</option>
             @foreach($tags as $tag)
-                @canany (['create documents','create documents in tag '.$tag->id])
+                @canany (['create documents', 'user manage permission','create documents in tag '.$tag->id])
                     <option value="{{$tag->id}}">{{$tag->name}}</option>
                 @endcanany
             @endforeach

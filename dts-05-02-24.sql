@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2024 at 03:30 AM
+-- Generation Time: May 02, 2024 at 08:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,6 +35,14 @@ CREATE TABLE `activities` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `document_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `activities`
+--
+
+INSERT INTO `activities` (`id`, `created_by`, `activity`, `created_at`, `updated_at`, `document_id`) VALUES
+(1, 3, 'Document Created<a href=\"http://localhost:8000/admin/documents/1\"></a>', '2024-05-02 04:06:10', '2024-05-02 04:06:10', 1),
+(2, 3, '1 New Files Uploaded<a href=\"http://localhost:8000/admin/documents/1\"></a>', '2024-05-02 04:06:37', '2024-05-02 04:06:37', 1);
 
 -- --------------------------------------------------------
 
@@ -72,6 +80,13 @@ CREATE TABLE `documents` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `documents`
+--
+
+INSERT INTO `documents` (`id`, `document_id`, `name`, `description`, `status`, `created_by`, `custom_fields`, `verified_by`, `verified_at`, `created_at`, `updated_at`) VALUES
+(1, '2024-0502-001', 'New Dialysis Center Computer and Network Systems', NULL, 'PENDING', 3, NULL, NULL, NULL, '2024-05-02 04:06:10', '2024-05-02 04:06:37');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +97,13 @@ CREATE TABLE `documents_tags` (
   `document_id` int(10) UNSIGNED NOT NULL,
   `tag_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `documents_tags`
+--
+
+INSERT INTO `documents_tags` (`document_id`, `tag_id`) VALUES
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -115,6 +137,13 @@ CREATE TABLE `files` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `files`
+--
+
+INSERT INTO `files` (`id`, `name`, `file`, `document_id`, `file_type_id`, `created_by`, `custom_fields`, `created_at`, `updated_at`) VALUES
+(3, 'New Dialysis Center Computer and Network Systems (2nd Follow Up)', 'inHvKDKKDpcVpRO7QDg005GzH7qqUI3kP6sNVR2O.txt', 1, 4, 3, '[]', '2024-05-02 04:06:37', '2024-05-02 04:06:37');
 
 -- --------------------------------------------------------
 
@@ -309,7 +338,11 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (104, 'create documents in tag 17', 'web', '2024-05-01 22:52:02', '2024-05-01 22:52:02'),
 (105, 'update documents in tag 17', 'web', '2024-05-01 22:52:02', '2024-05-01 22:52:02'),
 (106, 'delete documents in tag 17', 'web', '2024-05-01 22:52:02', '2024-05-01 22:52:02'),
-(107, 'verify documents in tag 17', 'web', '2024-05-01 22:52:02', '2024-05-01 22:52:02');
+(107, 'verify documents in tag 17', 'web', '2024-05-01 22:52:02', '2024-05-01 22:52:02'),
+(108, 'read document 1', 'web', '2024-05-02 04:06:10', '2024-05-02 04:06:10'),
+(109, 'update document 1', 'web', '2024-05-02 04:06:10', '2024-05-02 04:06:10'),
+(110, 'delete document 1', 'web', '2024-05-02 04:06:10', '2024-05-02 04:06:10'),
+(111, 'verify document 1', 'web', '2024-05-02 04:06:10', '2024-05-02 04:06:10');
 
 -- --------------------------------------------------------
 
@@ -326,6 +359,13 @@ CREATE TABLE `received_documents` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `received_documents`
+--
+
+INSERT INTO `received_documents` (`id`, `document_id`, `creator_id`, `sender_id`, `receiver_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 3, 2, '2024-05-02 04:06:10', '2024-05-02 04:06:10');
 
 -- --------------------------------------------------------
 
@@ -475,6 +515,7 @@ CREATE TABLE `user_has_permissions` (
 --
 
 INSERT INTO `user_has_permissions` (`permission_id`, `model_type`, `user_id`) VALUES
+(5, 'App\\User', 2),
 (5, 'App\\User', 3),
 (5, 'App\\User', 5),
 (5, 'App\\User', 6),
@@ -666,7 +707,7 @@ ALTER TABLE `user_has_roles`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `custom_fields`
@@ -678,7 +719,7 @@ ALTER TABLE `custom_fields`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -690,7 +731,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `file_types`
@@ -708,13 +749,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `received_documents`
 --
 ALTER TABLE `received_documents`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
