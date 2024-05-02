@@ -128,7 +128,8 @@
                             <span style="background-color:#E34234; color:#fff" >{{formatDate(optional($activities->first())->created_at,'d M Y')}}</span>
                             </li>
                             @foreach ($activities as $activity)
-                                @can('view',$activity->document)
+                                @can('viewAny',$activity->document)
+                                @if(auth()->user() && $document->created_by === auth()->user()->id)
                                 <li>
                                     <i class="fa fa-solid" data-toggle="tooltip"
                                        title="{{$activity->createdBy->name}}"></i>
@@ -141,6 +142,7 @@
                                         <h4 class="timeline-header no-border">{!! $activity->activity !!}</h4>
                                     </div>
                                 </li>
+                                @endif
                                 @endcan
                             @endforeach
                         </ul>
