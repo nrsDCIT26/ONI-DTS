@@ -101,7 +101,7 @@ class DocumentPolicy
         if ($user->can('create documents')) {
             return true;
         }
-        
+
         //check create permission in all tags
         $tagPermissions = [];
         foreach ($tags as $tag) {
@@ -110,11 +110,9 @@ class DocumentPolicy
         if ($user->hasAllPermissions($tagPermissions)) {
             return true;
         }
-    
+
         return false;
     }
-    
-    
 
     /**
      * Determine whether the user can edit the document.

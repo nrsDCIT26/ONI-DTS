@@ -4,12 +4,12 @@
             <td>
                 {!! Form::select('tag_permissions[@{{index}}][tag_id]', $tags , null , ['class' => 'form-control input-sm']) !!}
             </td>
-            @foreach (config('constants.TAG_LEVEL_PERMISSIONS')  as $perm)
+           {{--@foreach (config('constants.TAG_LEVEL_PERMISSIONS')  as $perm)
                 <td><label>
                         <input name="tag_permissions[@{{index}}][{{$perm}}]" type="checkbox" class="iCheck-helper"
                                value="1">
                     </label></td>
-            @endforeach
+            @endforeach --}} 
             <td>
                 <button onclick="removeRow(this)" class="btn btn-danger btn-xs" title="Remove row"><i
                         class="fa fa-trash"></i></button>
@@ -180,9 +180,10 @@
                         <thead>
                         <tr>
                             <th>Select {{ucfirst(config('settings.tags_label_singular'))}}</th>
-                            @foreach (config('constants.TAG_LEVEL_PERMISSIONS')  as $perm)
+                            <th>Action</th>
+                        {{--@foreach (config('constants.TAG_LEVEL_PERMISSIONS')  as $perm)
                                 <th>{{ucfirst($perm)}}</th>
-                            @endforeach
+                            @endforeach --}} 
                         </tr>
                         </thead>
                         <tbody id="permission-body">

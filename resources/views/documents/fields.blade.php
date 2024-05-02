@@ -9,8 +9,8 @@
     @else
         <div class="form-group col-sm-6 ">
             <label for="tags">{{ucfirst(config('settings.tags_label_plural'))}}</label>
-            <select class="form-control select2" id="tags" name="tags">
-                        <option value="">Send To:</option>
+            <select class="form-control select2" id="tags"name="tags">
+                    <option value="">Select User:</option>
                 @foreach($tags as $tag)
                     @canany (['create documents','create documents in tag '.$tag->id])
                         <option value="{{$tag->id}}">{{$tag->name}}</option>
@@ -23,7 +23,7 @@
     <div class="form-group col-sm-6 {{ $errors->has("tags") ? 'has-error' :'' }}">
         <label for="tags">{{ucfirst(config('settings.tags_label_plural'))}}</label>
         <select class="form-control select2" id="tags" name="tags">
-                        <option value="">Send To:</option>
+                    <option value="">Select User:</option>
             @foreach($tags as $tag)
                 @canany (['create documents','create documents in tag '.$tag->id])
                     <option value="{{$tag->id}}">{{$tag->name}}</option>
