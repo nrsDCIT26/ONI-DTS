@@ -431,12 +431,11 @@
                             </div>
 
                             {!! Form::open(['route' => ['documents.verify', $document->id], 'method' => 'post', 'id' => 'verificationForm']) !!}
-                            @if ($document->status!=config('constants.STATUS.APPROVED'))
+                            @if ($document->status!=config('constants.STATUS.APPROVED') && $document->verified_by != auth()->user()->id)
                             <h5 class="modal-title text-muted">Comments / Remarks</h5>
                             <div class="form-group text-center">
                                 <textarea class="form-control" name="vcomment" id="vcomment" rows="4" placeholder=""></textarea>
                             </div>
-                           
                             <div class="form-group">
                                 <div class="dropdown">
                                     <button class="btn btn-success dropdown-toggle"type="button" id="menu1" data-toggle="dropdown">Action
@@ -468,6 +467,22 @@
                                         <div class="form-gorup">
                                             @if ($document->status == config('constants.STATUS.APPROVED'))
                                                 Verified At: <b>{{formatDateTime($document->verified_at)}}</b>
+                                                ({{\Carbon\Carbon::parse($document->verified_at)->diffForHumans()}})
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            @if ($document->status == config('constants.STATUS.FORWARDED'))
+                                                <span class="label label-success">FORWARDED</span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            @if ($document->status == config('constants.STATUS.FORWARDED'))
+                                                By: <b>{{$document->verifiedBy->name}}</b>
+                                            @endif
+                                        </div>
+                                        <div class="form-gorup">
+                                            @if ($document->status == config('constants.STATUS.FORWARDED'))
+                                                Forwarded At: <b>{{formatDateTime($document->verified_at)}}</b>
                                                 ({{\Carbon\Carbon::parse($document->verified_at)->diffForHumans()}})
                                             @endif
                                         </div>
