@@ -333,12 +333,13 @@ class DocumentController extends Controller
     public function storeFiles($id, CreateFilesRequest $request)
     {
         $document = Document::findOrFail($id);
+        $userName = auth()->user()->name;
         $this->authorize('update', [$document, $document->tags->pluck('id')]);
         $filesData = $request->all('files')['files'] ?? [];
         /* Prepare final data */
         $filesData = $this->prepareFilesData($filesData);
         $this->documentRepository->saveFilesWithDoc($filesData, $document);
-        $document->newActivity(count($filesData) . " New " . ucfirst(config('settings.file_label_plural')) . " Uploaded");
+        $document->newActivity(count($filesData) . " New " . ucfirst(config('settings.file_label_plural')) . " Uploaded<br><span style='font-size: 80%;'>$userName</span>");
         Flash::success(ucfirst(config('settings.file_label_plural')) . " Uploaded Successfully");
         if (!$request->ajax()) {
             return redirect()->route('documents.show', ['id' => $document->id]);

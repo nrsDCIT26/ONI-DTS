@@ -117,12 +117,11 @@
             <div class="table-responsive">
                 <table class="table table-bordered text-center">
                     <thead class="table-dark">
-                        <tr>
-                            <th>Document ID</th>
-                            <th>Title</th>
+                        <tr>                            
+                            <th>Remarks</th>
+                            <th>Details</th>
                             <th>Status</th>
                             <th>Last Updated</th>
-                            <th>Remarks</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -133,17 +132,28 @@
                             @continue
                         @endcannot
                             <tr>
-                                <td> <!-- <i class="fa fa-solid fa-file-lines"></i> -->
-                                    <a href="{{ route('documents.show', $document->id) }}" style="color: #000">{{ $document->document_id }}</a>
+                                <td style="vertical-align: middle;">
+                                    @if ($document->isVerified)
+                                        <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"><p style="font-family: Varela Round;">Approved</p></i>
+                                    @elseif ($document->isDeclined)
+                                        <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"><p style="font-family: Varela Round;">Declined</p></i>
+                                    @elseif ($document->status == config('constants.STATUS.PENDING')) 
+                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"><p style="font-family: Varela Round;">In Progress</p></i>
+                                    @elseif ($document->status == config('constants.STATUS.FORWARDED')) 
+                                        <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"><p style="font-family: Varela Round;">Forwarded</p></i>
+                                    @elseif ($document->status == config('constants.STATUS.RETURNED')) 
+                                        <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"><p style="font-family: Varela Round;">Returned</p></i>
+                                    @endif
                                 </td>
                                 <td style="text-align: left">
-                                    <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
-                                    <small class="description"><b
-                                            title="{{formatDateTime($document->created_at)}}"
-                                            data-toggle="tooltip">{{\Carbon\Carbon::parse($document->created_at)->diffForHumans()}}</b>
-                                    by <b>{{$document->createdBy->name}}</b></small>
+                                    @foreach($document->files as $file)
+                                        <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
+                                        <small class="description">Date Created: <b title="{{formatDateTime($file->created_at)}}" data-toggle="tooltip">{{\Carbon\Carbon::parse($file->created_at)->diffForHumans()}}</b></small>
+                                        <small><br>Document ID: <b>{{$document->document_id}}</b></small>
+                                        <small><br>Document Type: <b>{{$file->fileType->name}}</b></small>
+                                    @endforeach
                                 </td>
-                                <td>
+                                <td style="vertical-align: middle;">
                                     @if ($document->activities->isNotEmpty())
                                         @php 
                                             $activities = $document->activities->reverse(); 
@@ -159,72 +169,9 @@
                                 </td>
                                 <td>{{ formatDate($document->updated_at) }}</td>
                                 <td>
-                                    @if ($document->isVerified)
-                                        <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"><p style="font-family: Varela Round;">Approved</p></i>
-                                    @elseif ($document->isDeclined)
-                                        <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"><p style="font-family: Varela Round;">Declined</p></i>
-                                    @elseif ($document->status == config('constants.STATUS.PENDING')) 
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"><p style="font-family: Varela Round;">In Progress</p></i>
-                                    @elseif ($document->status == config('constants.STATUS.FORWARDED')) 
-                                        <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"><p style="font-family: Varela Round;">Forwarded</p></i>
-                                    @elseif ($document->status == config('constants.STATUS.RETURNED')) 
-                                        <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"><p style="font-family: Varela Round;">Returned</p></i>
-                                    @endif
-                                </td>
-                                <td>
                                     <a href="{{ route('documents.show', $document->id) }}" title="Show" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
-                                    @can('edit', $document)
-                                        <a href="{{ route('documents.edit', $document->id) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
-                                    @endcan
-                                    @can('delete', $document)
-                                        {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline']) !!}
-                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete" onclick="return conformDel(this,event)"><i class="fa fa-trash"></i></button>
-                                        {!! Form::close() !!}
-                                    @endcan
-                                </td>
-                            </tr>
-                            @if (Request::query('status') == 'APPROVED')
-                            <tr>
-                                <td> <!-- <i class="fa fa-solid fa-file-lines"></i> -->
-                                    <a href="{{ route('documents.show', $document->id) }}" style="color: #000">{{ $document->document_id }}</a>
-                                </td>
-                                <td style="text-align: left">
-                                    <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
-                                    <small class="description"><b
-                                            title="{{formatDateTime($document->created_at)}}"
-                                            data-toggle="tooltip">{{\Carbon\Carbon::parse($document->created_at)->diffForHumans()}}</b>
-                                    by <b>{{$document->createdBy->name}}</b></small>
-                                </td>
-                                <td>
-                                    @if ($document->activities->isNotEmpty())
-                                        @php 
-                                            $activities = $document->activities->reverse(); 
-                                        @endphp
-                                            @foreach ($activities as $activity)
-                                                @if($loop->last)
-                                                 <p style="font-family: Varela Round;">{!! $activity->activity !!}</p>
-                                                @endif
-                                            @endforeach
+                                    @if(Request::query('status') == 'APPROVED')
                                     @else
-                                        <span>No activity</span>
-                                    @endif
-                                </td>
-                                <td>{{ formatDate($document->updated_at) }}</td>
-                                <td>
-                                    @if ($document->isVerified)
-                                        <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"><p style="font-family: Varela Round;">Approved</p></i>
-                                    @elseif ($document->isDeclined)
-                                        <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"><p style="font-family: Varela Round;">Declined</p></i>
-                                    @elseif ($document->status == config('constants.STATUS.PENDING')) 
-                                        <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"><p style="font-family: Varela Round;">In Progress</p></i>
-                                    @elseif ($document->status == config('constants.STATUS.FORWARDED')) 
-                                        <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"><p style="font-family: Varela Round;">Forwarded</p></i>
-                                    @elseif ($document->status == config('constants.STATUS.RETURNED')) 
-                                        <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"><p style="font-family: Varela Round;">Returned</p></i>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('documents.show', $document->id) }}" title="Show" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
                                     @can('edit', $document)
                                         <a href="{{ route('documents.edit', $document->id) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
                                     @endcan
@@ -233,9 +180,9 @@
                                             <button type="submit" class="btn btn-danger btn-xs" title="Delete" onclick="return conformDel(this,event)"><i class="fa fa-trash"></i></button>
                                         {!! Form::close() !!}
                                     @endcan
+                                    @endif
                                 </td>
                             </tr>
-                            @endif
                         @endforeach
                     </tbody>
                 </table>

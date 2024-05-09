@@ -45,38 +45,41 @@
 @endcan
 @can('user manage permission')
     @if(!auth()->user()->is_super_admin)
-        <li class="treeview {{ Request::is('admin/document-received*') ? 'active' : ''  }}">
-                @php
-                    $lastVisitTimestamp = auth()->user()->last_visit_timestamp; 
-                    $documents = DB::table('documents')->get();
-                    $newFilesCount = 0;
-                    foreach ($documents->sortByDesc('document_id') as $document) {
-                        if (\Carbon\Carbon::parse($document->created_at)->lessThan($lastVisitTimestamp)) {
-                            $newFilesCount++;
-                        }
-                    }
-                @endphp
-            <a>
-                <i class="fa fa-file-text-o"></i>
-                <span>RECEIVED FILES</span>
-                <span class="pull-right-container">
+    <li class="treeview {{ Request::is('admin/document-received*') ? 'active' : '' }}">
+    @php
+        $lastVisitTimestamp = auth()->user()->last_visit_timestamp; 
+        $documents = DB::table('documents')->get();
+        $newFilesCount = 0;     
+        foreach ($documents as $document) {
+            if (\Carbon\Carbon::parse($document->created_at)->greaterThan($lastVisitTimestamp)) {
+                $newFilesCount++;
+            }
+        }
+    @endphp
+    <a>
+        <i class="fa fa-file-text-o"></i>
+        <span>RECEIVED FILES</span>
+        <span class="pull-right-container">
+            @if ($newFilesCount > 0)
+                <span class="badge badge-red">{{ $newFilesCount }}</span>
+            @endif
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="{{ Request::query('status') == '' ? 'active' : '' }}">
+            <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'created_at' => \Carbon\Carbon::now()->format('Y-m-d')]) }}">
+                <i class="fa fa-solid fa-inbox"></i><span> Inbox</span>
                 @if ($newFilesCount > 0)
-                    <span class="badge badge-red"> </span>
+                    <span class="badge badge-red">{{ $newFilesCount }}</span>
+                @else
+                    <span class="badge">{{ $newFilesCount }}</span>
                 @endif
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
             </a>
-            <ul class="treeview-menu">
-            <li class="{{ Request::query('status') == '' ? 'active' : '' }}">
-                <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'created_at' => \Carbon\Carbon::now()->format('Y-m-d')]) }}">
-                    <i class="fa fa-solid fa-inbox"></i><span> Inbox</span>
-                    @if ($newFilesCount > 0)
-                        <span class="badge badge-red">{{ $newFilesCount }}</span>
-                    @else
-                        <span class="badge">{{ $newFilesCount }}</span>
-                    @endif
-                </a>
-            </li>
+        </li>
+    </ul>
+</li>
+
            {{--<li class="{{ Request::query('receiver_id') == auth()->id() && Request::query('status') == 'APPROVED' ? 'active' : '' }}">
                 <a href="{{ route('documents.received', ['receiver_id' => auth()->id(), 'status' => 'APPROVED']) }}">
                     <i class="fa fa-solid fa-folder-tree"></i>
