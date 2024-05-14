@@ -339,7 +339,7 @@ class DocumentController extends Controller
         /* Prepare final data */
         $filesData = $this->prepareFilesData($filesData);
         $this->documentRepository->saveFilesWithDoc($filesData, $document);
-        $document->newActivity(count($filesData) . " New " . ucfirst(config('settings.file_label_plural')) . " Uploaded<br><span style='font-size: 80%;'>$userName</span>");
+        $document->newActivity(count($filesData) . " New " . ucfirst(config('settings.file_label_plural')) . " Uploaded<br><span style='font-size: 80%;'>by: $userName</span>");
         Flash::success(ucfirst(config('settings.file_label_plural')) . " Uploaded Successfully");
         if (!$request->ajax()) {
             return redirect()->route('documents.show', ['id' => $document->id]);
@@ -445,8 +445,9 @@ class DocumentController extends Controller
     public function deleteFile($id)
     {
         $file = File::findOrFail($id);
+        $userName = auth()->user()->name;
         $this->authorize('delete', $file->document);
-        $file->document->newActivity($file->name . " Deleted From " . ucfirst(config('settings.document_label_singular')));
+        $file->document->newActivity($file->name . " Deleted " . "<br><span style='font-size: 80%;'>by: $userName</span>");
         $this->documentRepository->deleteFile($file);
         Flash::success(ucfirst(config('settings.file_label_singular')) . " Deleted Successfully");
         return redirect()->back();
