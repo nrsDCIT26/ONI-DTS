@@ -66,15 +66,6 @@
         <h1 class="pull-left">
             {{ucfirst(config('settings.document_label_plural'))}}
         </h1>
-        <h1 class="pull-right">
-            @can('create',\App\Document::class)
-                <a href="{{route('documents.create')}}"
-                   class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Add New
-                </a>
-            @endcan
-        </h1>
     </section>
     <div class="content" style="margin-top: 22px;">
         <div class="clearfix"></div>
