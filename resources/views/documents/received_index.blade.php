@@ -146,12 +146,21 @@
                                     @endif
                                 </td>
                                 <td style="text-align: left">
-                                    @foreach($document->files as $file)
+                                    @if ($document->files->isEmpty())
                                         <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
-                                        <small class="description">Date Created: <b title="{{formatDateTime($file->created_at)}}" data-toggle="tooltip">{{\Carbon\Carbon::parse($file->created_at)->diffForHumans()}}</b></small>
-                                        <small><br>Document ID: <b>{{$document->document_id}}</b></small>
-                                        <small><br>Document Type: <b>{{$file->fileType->name}}</b></small>
-                                    @endforeach
+                                        <small class="description"><b>No File Found</b></small>
+                                    @else
+                                        <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
+                                        @foreach($document->files as $index => $file)
+                                            @if ($index === 0)
+                                            <small class="description">Date Created: <b title="{{ formatDateTime($file->created_at) }}" data-toggle="tooltip">{{ \Carbon\Carbon::parse($file->created_at)->diffForHumans() }}</b></small>
+                                            <small><br>Document ID: <b>{{ $document->document_id }}</b></small>
+                                            <small><br>File Type: <b>{{ $file->fileType->name }}</b></small>
+                                            @else
+                                                <small>, <b>{{ $file->fileType->name }}</b></small>
+                                            @endif
+                                        @endforeach
+                                    @endif    
                                 </td>
                                 <td style="vertical-align: middle;">
                                     @if ($document->activities->isNotEmpty())
