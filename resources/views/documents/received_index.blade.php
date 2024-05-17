@@ -166,7 +166,7 @@
                                     @else
                                         <span>No activity</span>
                                     @endif
-                                </td>
+                                <d>
                                 <td>{{ formatDate($document->updated_at) }}</td>
                                 <td>
                                     <a href="{{ route('documents.show', $document->id) }}" title="Show" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
@@ -175,11 +175,11 @@
                                     @can('edit', $document)
                                         <a href="{{ route('documents.edit', $document->id) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
                                     @endcan
-                                    @can('delete', $document)
-                                        {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline']) !!}
-                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete" onclick="return conformDel(this,event)"><i class="fa fa-trash"></i></button>
-                                        {!! Form::close() !!}
-                                    @endcan
+                                        @if (auth()->user()->can('delete document '.$document->id) )
+                                            {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline']) !!}
+                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete" onclick="return conformDel(this,event)"><i class="fa fa-trash"></i></button>
+                                            {!! Form::close() !!}
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
