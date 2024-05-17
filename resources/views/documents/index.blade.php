@@ -169,13 +169,17 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('documents.show', $document->id) }}" title="Show" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>
+                                            <form method="GET" action="{{ route('documents.show', $document->id) }}" style="display: inline;">
+                                                <button type="submit" class="btn btn-sm rounded-pill btn-primary" title="Show" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-eye"></i></button>
+                                            </form>
                                         @can('edit', $document)
-                                            <a href="{{ route('documents.edit', $document->id) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+                                            <form method="GET" action="{{ route('documents.edit', $document->id) }}" style="display: inline;">
+                                                <button type="submit" class="btn btn-sm rounded-pill btn-warning" title="Edit" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-edit"></i></button>
+                                            </form>
                                         @endcan
                                         @can('delete', $document)
-                                            {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline']) !!}
-                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete" onclick="return conformDel(this,event)"><i class="fa fa-trash"></i></button>
+                                            {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline;']) !!}
+                                                <button type="submit" class="btn btn-sm rounded-pill btn-danger" title="Delete" onclick="return conformDel(this,event)" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-trash"></i></button>
                                             {!! Form::close() !!}
                                         @endcan
                                     </td>
