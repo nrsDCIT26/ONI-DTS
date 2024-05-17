@@ -249,7 +249,7 @@
                         @endif
                         </div>
                         <div class="form-group">
-                            <label>Status:</label>
+                            <label>Status:</label>0
                             @if ($document->status==config('constants.STATUS.PENDING'))
                                 <span class="label label-warning">{{$document->status}}</span>
                             @elseif($document->status==config('constants.STATUS.APPROVED'))
