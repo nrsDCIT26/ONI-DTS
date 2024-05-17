@@ -262,13 +262,13 @@
                         </div>
                         <div class="form-group">
                             <label>Created At:</label>
-                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px">{!! formatDateTime($document->created_at) !!} <br>
+                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px">{{ date('F j, Y \a\t g:i A', strtotime($document->updated_at)) }} <br>
                                 ({{\Carbon\Carbon::parse($document->created_at)->diffForHumans()}})
                             </p>
                         </div>
                         <div class="form-group">
                             <label>Last Updated:</label>
-                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px;">{!! formatDateTime($document->updated_at) !!} <br>
+                            <p style="font-family: Varela Round; font-weight: regular; font-size: 12px;">{{ date('F j, Y \a\t g:i A', strtotime($document->updated_at)) }} <br>
                                 ({{\Carbon\Carbon::parse($document->updated_at)->diffForHumans()}})
                             </p> 
                         </div>

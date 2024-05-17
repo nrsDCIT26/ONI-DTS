@@ -133,14 +133,14 @@
                                     @continue
                                 @endcannot
                                 <tr>
-                                    <td> <!-- <i class="fa fa-solid fa-file-lines"></i> -->
+                                    <td style="vertical-align: middle;"> <!-- <i class="fa fa-solid fa-file-lines"></i> -->
                                         <a href="{{ route('documents.show', $document->id) }}" style="color: #000">{{ $document->document_id }}</a>
                                     </td>
                                     <td style="text-align: left">
                                         <a href="{{ route('documents.show', $document->id) }}" style="font-family: Varela Round; font-weight: bold;">{{ $document->name }}</a> <br>
                                         <small class="description"><b title="{{formatDateTime($document->created_at)}}" data-toggle="tooltip">{{ \Carbon\Carbon::parse($document->created_at)->diffForHumans() }}</b> by <b>{{ $document->createdBy->name }}</b></small>
                                     </td>
-                                    <td>
+                                    <td style="vertical-align: middle;">
                                         @if ($document->activities->isNotEmpty())
                                             @php 
                                                 $activities = $document->activities->reverse(); 
@@ -154,32 +154,32 @@
                                             <span>No activity</span>
                                         @endif
                                     </td>
-                                    <td>{{ formatDate($document->updated_at) }}</td>
+                                    <td>{{ date('F j, Y \a\t g:i A', strtotime($document->updated_at)) }}</td>
                                     <td>
                                         @if ($document->isVerified)
-                                            <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"><p style="font-family: Varela Round;">Approved</p></i>
+                                            <i title="Approved" data-toggle="tooltip" class="fa fa-check-circle" style="color: #388E3C;"><p style="font-family: Varela Round;"></p></i>
                                         @elseif ($document->isDeclined)
-                                            <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"><p style="font-family: Varela Round;">Declined</p></i>
+                                            <i title="Declined" data-toggle="tooltip" class="fa fa-ban" style="color: #f44336;"><p style="font-family: Varela Round;"></p></i>
                                         @elseif ($document->status == config('constants.STATUS.PENDING')) 
-                                            <i title="In Progress" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"><p style="font-family: Varela Round;">In Progress</p></i>
+                                            <i title="Pending" data-toggle="tooltip" class="fa fa-clock" style="color:#E49B0F;"><p style="font-family: Varela Round;"></p></i>
                                         @elseif ($document->status == config('constants.STATUS.FORWARDED')) 
-                                            <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"><p style="font-family: Varela Round;">Forwarded</p></i>
+                                            <i title="Forwarded" data-toggle="tooltip" class="fa fa-forward" style="color:#388E3C;"><p style="font-family: Varela Round;"></p></i>
                                         @elseif ($document->status == config('constants.STATUS.RETURNED')) 
-                                            <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"><p style="font-family: Varela Round;">Returned</p></i>
+                                            <i title="Returned" data-toggle="tooltip" class="fa fa-backward" style="color:#f44336;"><p style="font-family: Varela Round;"></p></i>
                                         @endif
                                     </td>
                                     <td>
                                             <form method="GET" action="{{ route('documents.show', $document->id) }}" style="display: inline;">
-                                                <button type="submit" class="btn btn-sm rounded-pill btn-primary" title="Show" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-eye"></i></button>
+                                                <button type="submit" class="btn btn-sm rounded-pill" title="Show" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-eye"></i></button>
                                             </form>
                                         @can('edit', $document)
                                             <form method="GET" action="{{ route('documents.edit', $document->id) }}" style="display: inline;">
-                                                <button type="submit" class="btn btn-sm rounded-pill btn-warning" title="Edit" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-edit"></i></button>
+                                                <button type="submit" class="btn btn-sm rounded-pill" title="Edit" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-edit"></i></button>
                                             </form>
                                         @endcan
                                         @can('delete', $document)
                                             {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline;']) !!}
-                                                <button type="submit" class="btn btn-sm rounded-pill btn-danger" title="Delete" onclick="return conformDel(this,event)" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-sm rounded-pill" title="Delete" onclick="return conformDel(this,event)" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-trash"></i></button>
                                             {!! Form::close() !!}
                                         @endcan
                                     </td>
