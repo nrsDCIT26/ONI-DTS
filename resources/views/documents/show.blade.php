@@ -182,14 +182,20 @@
             @endif
             @endcan
             @can('delete', $document)
+            @if(auth()->user() && $document->created_by === auth()->user()->id)
                 {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style'=>'display:inline;']) !!}
-                @if(auth()->user() && $document->created_by === auth()->user()->id)
-                <button class="btn btn-danger" onclick="conformDel(this,event)" type="submit"><i
-                        class="fa fa-trash"></i>
-                    Delete
-                </button>
+                    @if ($document->isVerified)
+                        @php
+                            $disabled = $document->status == config('constants.STATUS.APPROVED') ? 'disabled' : '';
+                        @endphp
+                    @else
+                        <button class="btn btn-danger" onclick="conformDel(this,event)" type="submit"><i
+                                class="fa fa-trash"></i>
+                            Delete
+                        </button>
+                    @endif
                 {!! Form::close() !!}
-                @endif
+            @endif
             @endcan
         </h1>
     </section>

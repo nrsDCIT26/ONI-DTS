@@ -169,9 +169,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                            <form method="GET" action="{{ route('documents.show', $document->id) }}" style="display: inline;">
-                                                <button type="submit" class="btn btn-sm rounded-pill" title="Show" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-eye"></i></button>
-                                            </form>
+                                    <form method="GET" action="{{ route('documents.show', $document->id) }}" style="display: inline;">
+                                        <button type="submit" class="btn btn-sm rounded-pill" title="Show" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-eye"></i></button>
+                                    </form>
+                                    @if(Request::query('status') != 'APPROVED')
                                         @can('edit', $document)
                                             <form method="GET" action="{{ route('documents.edit', $document->id) }}" style="display: inline;">
                                                 <button type="submit" class="btn btn-sm rounded-pill" title="Edit" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-edit"></i></button>
@@ -182,7 +183,19 @@
                                                 <button type="submit" class="btn btn-sm rounded-pill" title="Delete" onclick="return conformDel(this,event)" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-trash"></i></button>
                                             {!! Form::close() !!}
                                         @endcan
-                                    </td>
+                                    @else
+                                        @if (auth()->user()->can('edit document '.$document->id) && $document->status == config('constants.STATUS.APPROVED') )
+                                            <form method="GET" action="{{ route('documents.edit', $document->id) }}" style="display: inline;">
+                                                <button type="submit" class="btn btn-sm rounded-pill" title="Edit" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-edit"></i></button>
+                                            </form>
+                                        @endif
+                                        @if (auth()->user()->can('delete document '.$document->id) && $document->status == config('constants.STATUS.APPROVED') )
+                                            {!! Form::open(['route' => ['documents.destroy', $document->id], 'method' => 'delete', 'style' => 'display:inline']) !!}
+                                                <button type="submit" class="btn btn-sm rounded-pill" title="Delete" onclick="return conformDel(this,event)" style="border-radius: 15px; padding: 2px 10px;"><i class="fas fa-trash"></i></button>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endif
+                                </td>
                                 </tr>
                             @endif
                         @endforeach
