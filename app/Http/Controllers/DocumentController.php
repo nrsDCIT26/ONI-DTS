@@ -93,9 +93,12 @@ class DocumentController extends Controller
         // Get the currently authenticated user's id
         $userId = auth()->id();
         
-        // Fetch received documents for the current user
+        // Fetch received documents for the current user excluding those they created
         $rcvDocuments = DB::table('received_documents')
-                        ->where('receiver_id', $userId)
+                        ->join('documents', 'received_documents.document_id', '=', 'documents.id')
+                        ->where('received_documents.receiver_id', $userId)
+                        ->where('documents.created_by', '!=', $userId)
+                        ->select('received_documents.*')
                         ->get();
         
         // Paginate documents
@@ -108,7 +111,7 @@ class DocumentController extends Controller
         $tags = $this->tagRepository->all();
         
         return view('documents.received_index', compact('rcvDocuments', 'documents', 'tags'));
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.
@@ -142,7 +145,14 @@ class DocumentController extends Controller
         $documentId = sprintf("%s-%02d%02d-%03d", $currentYear, now()->format('m'), now()->format('d'), $documentsCount);
         $data['document_id'] = $documentId;
     
-        $this->authorize('store', [Document::class, $data['tags']]);
+        // Convert tags_string to an array
+        if (isset($data['tags_string']) && is_string($data['tags_string'])) {
+            $tags = explode(',', $data['tags_string']);
+        } else {
+            $tags = [];
+        }
+    
+        // $this->authorize('store', [Document::class, $tags]);
     
         $document = $this->documentRepository->createWithTags($data);
         Flash::success(ucfirst(config('settings.document_label_singular')) . " Saved Successfully");
@@ -155,26 +165,30 @@ class DocumentController extends Controller
                 Permission::create(['name' => $permissionName]);
             }      
         } 
-
+    
         $receiverId = Auth::id();  
-               
-        foreach ($document->tags as $tag) {
-            $receiver_id = $tag->id;
+    
+        // Process tags if they exist
+        if (!empty($tags)) {
+            foreach ($tags as $tagId) {
+                $receiver_id = $tagId;
+                DB::table('received_documents')->insert([
+                    'document_id' => $document->id,
+                    'creator_id' => $receiverId, 
+                    'sender_id' => $receiverId, 
+                    'receiver_id' => $receiver_id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
-            DB::table('received_documents')->insert([
-                'document_id' => $document->id,
-                'creator_id' => $receiverId, 
-                'sender_id' => $receiverId, 
-                'receiver_id' => $receiver_id,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
     
         if ($request->has('savnup')) {
             return redirect()->route('documents.files.create', $document->id);
         }
         return redirect()->route('documents.index');
     }
+    
         
     /**
      * Display the specified resource.

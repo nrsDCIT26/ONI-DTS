@@ -20,18 +20,26 @@
         </div>
     @endif
 @else
-    <div class="form-group col-sm-6 {{ $errors->has("tags") ? 'has-error' :'' }}">
+    <div class="form-group col-sm-6 {{ $errors->has('tags') ? 'has-error' :'' }}">
         <label for="tags">{{ucfirst(config('settings.tags_label_plural'))}}</label>
-        <select class="form-control select2" id="tags" name="tags">
-                    <option value="">Select User:</option>
+        <select class="form-control select2" id="tags" name="tags[]" multiple>
+            <option value="">Select User:</option>
             @foreach($tags as $tag)
-                @canany (['create documents', 'user manage permission','create documents in tag '.$tag->id])
+                @canany(['create documents', 'user manage permission', 'create documents in tag ' . $tag->id])
                     <option value="{{$tag->id}}">{{$tag->name}}</option>
                 @endcanany
             @endforeach
         </select>
-        {!! $errors->first("tags",'<span class="help-block">:message</span>') !!}
+        {!! $errors->first('tags', '<span class="help-block">:message</span>') !!}
     </div>
+    <input type="hidden" name="tags_string" id="tags_string">
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function () {
+            var selectedTags = Array.from(document.querySelectorAll('#tags option:checked')).map(option => option.value);
+            document.querySelector('#tags_string').value = selectedTags.join(',');
+        });
+    </script>
 @endif
 {!! Form::bsTextarea('description',null,['class'=>'form-control b-wysihtml5-editor']) !!}
 

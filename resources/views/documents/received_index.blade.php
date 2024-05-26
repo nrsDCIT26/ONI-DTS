@@ -118,7 +118,9 @@
                     </thead>
                     <tbody>
                         @foreach ($documents->sortByDesc('document_id') as $document)
-                        
+                        @if ($document->created_by == auth()->id())
+                            @continue
+                        @endif
                         @cannot('view', $document)
                             @continue
                         @endcannot
