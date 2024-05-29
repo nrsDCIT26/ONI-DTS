@@ -58,7 +58,7 @@ class DocumentPolicy
 
         //check read permission in any tag
         $tagPermissions = [];
-        foreach ($document->tags as $tag) {
+         foreach ($document->tags as $tag) {
             $tagPermissions[] = 'read documents in tag ' . $tag->id;
         }
         if ($user->hasAnyPermission($tagPermissions)) {
