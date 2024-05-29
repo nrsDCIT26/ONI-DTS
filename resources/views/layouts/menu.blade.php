@@ -53,11 +53,11 @@
                         ->where('created_at', '>', $oneDayAgo)
                         ->exists();
 
-        if ($recentFiles) {
+       /* if ($recentFiles) {
             echo "There are recent files uploaded.";
         } else {
             echo "No recent files uploaded.";
-        }
+        } */
     @endphp
     <a>
         <i class="fa fa-file-text-o"></i>
