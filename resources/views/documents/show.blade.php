@@ -335,6 +335,7 @@
                                                         by <b>{{$file->createdBy->name}}</b></small>
                                                 </div>
                                                 <div class="pull-right box-tools">
+                                                    @if ($document->status = config('constants.STATUS.APPROVED'))
                                                     <button type="button"
                                                             class="btn btn-default btn-flat dropdown-toggle"
                                                             data-toggle="dropdown" aria-expanded="false"
@@ -342,6 +343,7 @@
                                                         <i class="fa fa-ellipsis-v" style="color: #fff;"></i>
                                                         <span class="sr-only">Toggle Dropdown</span>
                                                     </button>
+                                                    @endif
                                                     <ul class="dropdown-menu" role="menu">
                                                         <li><a href="javascript:void(0);"
                                                                onclick="showFileModal({{json_encode($file)}})">Show
