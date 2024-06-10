@@ -34,6 +34,14 @@
                 </div>
             </div>
         </div>
+        <strong>Create New File</strong>
+        <div class="form-group col-sm-6">
+            {!! Form::bsText('files[@{{index}}][name]', null, [], ucfirst(config('settings.file_label_singular'))." Name") !!}
+            //Purchase Request
+            <iframe src="https://docs.google.com/document/d/e/2PACX-1vQ0cMkAFrrQOqsUpsFdu9heoC35dwQ-x0mD5TeKMHQW_T27dAbNPeDhteciYF4NXKJZ5zijsE6koF8O/pub?embedded=true"></iframe>
+            //Leave Request
+            <iframe src="https://docs.google.com/document/d/e/2PACX-1vQ0cMkAFrrQOqsUpsFdu9heoC35dwQ-x0mD5TeKMHQW_T27dAbNPeDhteciYF4NXKJZ5zijsE6koF8O/pub?embedded=true"></iframe>
+        </div>
     </script>
 
     <script>
