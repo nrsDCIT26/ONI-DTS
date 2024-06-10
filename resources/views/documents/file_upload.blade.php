@@ -3,6 +3,9 @@
 @section('css')
 <style>
 .box-body {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,8 +22,10 @@
     width: 100%;
     max-width: 1000px; /* Adjust as needed */
 }
-
-#embeddedDoc {
+.container {
+    padding: 20px;
+}
+.request-frame {
     width: 100%;
     height: 718px;
     border: none;
@@ -199,12 +204,47 @@
         </div>
         {!! Form::close() !!}
     </div>
-    <div class="box-body">
-    <strong>Create New File</strong>
-    <div class="row justify-content-center">
-            <div class="form-group text-center">
-                <iframe src="https://docs.google.com/document/d/1-vboZ7D-YXgJA2MQCwQiAnoOgb_An1PZzj3ML3oLvpU/edit?embedded=true" id="embeddedDoc"></iframe>
+    <div class="container-fluid">
+        <div class="box-body">
+            <div class="row justify-content-center">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="requestType">Create New File:</label>
+                        <select id="requestType" class="form-control" onchange="showIframe()">
+                            <option value="">Document Type</option>
+                            <option value="leave">Leave Request</option>
+                            <option value="purchase">Purchase Request</option>
+                        </select>
+                        </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group text-center">
+                                <!-- Leave Form Frame -->
+                                <iframe src="https://docs.google.com/document/d/1-vboZ7D-YXgJA2MQCwQiAnoOgb_An1PZzj3ML3oLvpU/edit?embedded=true" id="leaveRequest" class="request-frame" style="display:none; border: 1px solid #ccc;;"></iframe>
+                                <!-- Purchase Request Frame -->
+                                <iframe src="https://docs.google.com/document/d/1uEI7HfI8VNqBzFQectGB5zZUfpUSNIuVP08LmESgXM4/edit?embedded=true" id="purchaseRequest" class="request-frame" style="display:none; border: 1px solid #ccc;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    <script>
+        function showIframe() {
+            var requestType = document.getElementById("requestType").value;
+            var leaveRequestIframe = document.getElementById("leaveRequest");
+            var purchaseRequestIframe = document.getElementById("purchaseRequest");
+
+            // Hide both iframes initially
+            leaveRequestIframe.style.display = "none";
+            purchaseRequestIframe.style.display = "none";
+
+            // Show the corresponding iframe based on the selected value
+            if (requestType === "leave") {
+                leaveRequestIframe.style.display = "block";
+            } else if (requestType === "purchase") {
+                purchaseRequestIframe.style.display = "block";
+            }
+        }
+    </script>
 @endsection
