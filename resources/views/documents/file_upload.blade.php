@@ -1,9 +1,31 @@
 @extends('layouts.app')
 @section('title',"Upload ".ucfirst(config('settings.file_label_plural')))
 @section('css')
-    <style>
+<style>
+.box-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
 
-    </style>
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-group {
+    width: 100%;
+    max-width: 1000px; /* Adjust as needed */
+}
+
+#embeddedDoc {
+    width: 100%;
+    height: 718px;
+    border: none;
+}
+</style>
 @stop
 @section('scripts')
     <script id="file-row-template" type="text/x-handlebars-template">
@@ -33,14 +55,6 @@
                     @endforeach
                 </div>
             </div>
-        </div>
-        <strong>Create New File</strong>
-        <div class="form-group col-sm-6">
-            {!! Form::bsText('files[@{{index}}][name]', null, [], ucfirst(config('settings.file_label_singular'))." Name") !!}
-            //Purchase Request
-            <iframe src="https://docs.google.com/document/d/e/2PACX-1vQ0cMkAFrrQOqsUpsFdu9heoC35dwQ-x0mD5TeKMHQW_T27dAbNPeDhteciYF4NXKJZ5zijsE6koF8O/pub?embedded=true"></iframe>
-            //Leave Request
-            <iframe src="https://docs.google.com/document/d/e/2PACX-1vQ0cMkAFrrQOqsUpsFdu9heoC35dwQ-x0mD5TeKMHQW_T27dAbNPeDhteciYF4NXKJZ5zijsE6koF8O/pub?embedded=true"></iframe>
         </div>
     </script>
 
@@ -184,5 +198,13 @@
             <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Upload</button>
         </div>
         {!! Form::close() !!}
+    </div>
+    <div class="box-body">
+    <strong>Create New File</strong>
+    <div class="row justify-content-center">
+            <div class="form-group text-center">
+                <iframe src="https://docs.google.com/document/d/1-vboZ7D-YXgJA2MQCwQiAnoOgb_An1PZzj3ML3oLvpU/edit?embedded=true" id="embeddedDoc"></iframe>
+            </div>
+        </div>
     </div>
 @endsection
