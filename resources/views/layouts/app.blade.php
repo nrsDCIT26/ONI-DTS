@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{asset('css/digidocu-custom.css')}}">
     <link href='https://fonts.googleapis.com/css?family=Varela Round' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     @yield('css')
 </head>
 
@@ -167,6 +169,7 @@
 <script src="{{asset('vendor/bootstrap-wysihtml5/js/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{asset('js/handlebar-helpers.js')}}"></script>
 <script src="{{asset('js/digidocu-custom.js')}}"></script>
 @yield('scripts')

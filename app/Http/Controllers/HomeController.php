@@ -15,6 +15,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
 use ZipArchive;
 
 class HomeController extends AppBaseController
@@ -37,28 +38,75 @@ class HomeController extends AppBaseController
     public function index(Request $request)
     {
         $documents = Document::all();
-        $activities = Activity::with(['createdBy','document']);
-        if($request->has('activity_range')){
-            $dates = explode("to",$request->get('activity_range'));
-            $activities->whereDate('created_at','>=',$dates[0]??'');
-            $activities->whereDate('created_at','<=',$dates[1]??'');
+        
+        // Fetch activities with filters
+        $activities = Activity::with(['createdBy', 'document']);
+        if ($request->has('activity_range')) {
+            $dates = explode("to", $request->get('activity_range'));
+            $activities->whereDate('created_at', '>=', $dates[0] ?? '');
+            $activities->whereDate('created_at', '<=', $dates[1] ?? '');
         }
         $activities = $activities->orderByDesc('id')->paginate(25);
-        $allTags = Tag::with('documents','documents.files')->withCount('documents');
-        if(!auth()->user()->can('read documents')){
-            $allPerm = auth()->user()->getAllPermissions();
-            $tmpTags = array_column(groupTagsPermissions($allPerm),'tag_id');
-            $allTags->whereIn('id',$tmpTags);
-        }
-        $allTags = $allTags->get();
+        
+        // Fetch tags and related document counts
+        $allTags = Tag::with('documents.files')->withCount('documents')->get();
         $tagCounts = $allTags->count();
-        $allDocs =  Document::whereHas('tags',function ($q) use($allTags){
-            return $q->whereIn('tag_id',$allTags->pluck('id')->toArray());
+        
+        // Fetch documents and related file counts
+        $allDocs = Document::whereHas('tags', function ($q) use ($allTags) {
+            return $q->whereIn('tag_id', $allTags->pluck('id')->toArray());
         })->pluck('id');
         $documentCounts = $allDocs->count();
-        $filesCounts = File::whereIn('document_id',$allDocs->toArray())->count();
-        return view('home',compact('documents','activities','tagCounts','documentCounts','filesCounts'));
-    }
+        $filesCounts = File::whereIn('document_id', $allDocs->toArray())->count();
+        
+        // Fetch monthly activities count
+        $monthlyActivities = Activity::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                                    ->whereYear('created_at', date('Y'))
+                                    ->groupBy('month')
+                                    ->get();
+    
+        // Transform numeric month to month name
+        $monthNames = [
+            1 => 'January',
+            2 => 'February',
+            3 => 'March',
+            4 => 'April',
+            5 => 'May',
+            6 => 'June',
+            7 => 'July',
+            8 => 'August',
+            9 => 'September',
+            10 => 'October',
+            11 => 'November',
+            12 => 'December',
+        ];
+        $monthlyActivities->transform(function ($item) use ($monthNames) {
+            $item->month_name = $monthNames[$item->month];
+            return $item;
+        });
+    
+        // Fetch uploaded documents grouped by month
+        $uploadedDocuments = Document::whereYear('created_at', date('Y'))
+                                    ->get()
+                                    ->groupBy(function ($date) {
+                                        return Carbon::parse($date->created_at)->format('m');
+                                    });
+    
+        // Initialize uploaded documents data with all months
+        $uploadedDocumentsData = [];
+        foreach ($monthNames as $monthNum => $monthName) {
+            $key = str_pad($monthNum, 2, '0', STR_PAD_LEFT); // Ensure two-digit month format
+            $count = isset($uploadedDocuments[$key]) ? $uploadedDocuments[$key]->count() : 0;
+            $uploadedDocumentsData[] = [
+                'month' => $key,
+                'month_name' => $monthName,
+                'count' => $count,
+            ];
+        }
+    
+        // Pass all necessary data to the view
+        return view('home', compact('documents', 'activities', 'tagCounts', 'documentCounts', 'filesCounts', 'monthlyActivities', 'uploadedDocumentsData'));
+    }     
 
     public function welcome()
     {

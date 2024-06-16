@@ -2338,7 +2338,7 @@ hr.divider {
     top: 0;
     bottom: 0;
     width: 4px;
-    background: #AFE1AF;
+    background: #3b8e3f;
     left: 31px;
     margin-bottom: 15px;
     border-radius: 2px
@@ -2403,7 +2403,7 @@ hr.divider {
     line-height: 30px;
     position: absolute;
     color: #666;
-    background: #AFE1AF;
+    background: #3b8e3f;
     border-radius: 50%;
     text-align: center;
     left: 23px;
@@ -5637,4 +5637,156 @@ hr {
     height: 15px;
     display: inline-block;
 }
-
+.content-header {
+    background-color: #fff;
+    padding: 15px 20px;
+}
+.content-header h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+.box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.box-header {
+    background-color: #f1f1f1;
+    padding: 15px 30px;
+    border-bottom: 1px solid #e2e2e2;
+}
+.box-header h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+.box-tools {
+    display: flex;
+    align-items: center;
+}
+.box-tools .btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #888;
+    font-size: 18px;
+    padding: 0;
+}
+.box-body {
+    padding: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.form-group select, .form-group button {
+    width: 100%;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+.form-group button {
+    width: 50%;
+    background-color: #6082B6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: block; /* Make the button a block element */
+    margin: 0 auto; /* Center the block element horizontally */
+}
+.form-group button:hover {
+    background-color: #0056b3;
+}
+.info-box {
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.info-box-icon {
+    font-size: 40px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.info-box-content {
+    flex: 1;
+}
+.info-box-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+.info-box-number {
+    font-size: 24px;
+    font-weight: 700;
+}
+.progress-description {
+    font-size: 14px;
+    margin-top: 5px;
+}
+.timeline {
+    list-style: none;
+    padding: 0;
+    position: relative;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ddd;
+    left: 30px;
+    margin: 0;
+}
+.timeline > li {
+    position: relative;
+    margin-bottom: 20px;
+}
+.timeline > li .time-label span {
+    background: #e34234;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+.timeline-item {
+    margin-left: 60px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.timeline-header {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.timeline-header a {
+    color: #007bff;
+    text-decoration: none;
+}
+.timeline-header a:hover {
+    text-decoration: underline;
+}
+.timeline-body {
+    margin-bottom: 10px;
+}
+.timeline-footer {
+    text-align: right;
+}
+.chart-container {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    height: 300px; 
+}
