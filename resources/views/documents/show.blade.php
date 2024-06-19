@@ -288,8 +288,11 @@
                                               aria-expanded="true">{{ucfirst(config('settings.file_label_plural'))}}</a>
                         </li>
                         @can('verify', $document)
+                            @if(auth()->user() && $document->created_by === auth()->user()->id)
+                            @else
                             <li class=""><a href="#tab_verification" data-toggle="tab"
                                             aria-expanded="false">Verification</a></li>
+                            @endif
                         @endcan
                         <li class=""><a href="#tab_activity" data-toggle="tab" aria-expanded="false">Tracking Status</a></li>
                     </ul>
@@ -368,7 +371,7 @@
                                                         @endif
                                                         <li>
                                                             {!! Form::open(['route' => ['documents.files.destroy', $file->id], 'method' => 'delete', 'style'=>'display:inline;']) !!}
-                                                            <button class="btn btn-link"
+                                                            <button class="btn-link"
                                                                     onclick="conformDel(this,event)" type="submit">
                                                                 Delete
                                                             </button>

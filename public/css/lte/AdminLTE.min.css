@@ -2406,8 +2406,8 @@ hr.divider {
     background: #3b8e3f;
     border-radius: 50%;
     text-align: center;
-    left: 23px;
-    top: 10px;
+    left: 21px;
+    top: 19px;
 }
 
 .timeline>.time-label>span {
@@ -5685,7 +5685,7 @@ hr {
     font-weight: 600;
     margin-bottom: 5px;
 }
-.form-group select, .form-group button {
+/* .form-group select, .form-group button {
     width: 100%;
     font-size: 16px;
     border-radius: 4px;
@@ -5697,12 +5697,11 @@ hr {
     color: #fff;
     border: none;
     cursor: pointer;
-    display: block; /* Make the button a block element */
-    margin: 0 auto; /* Center the block element horizontally */
-}
+    display: block; 
+    margin: 0 auto; 
 .form-group button:hover {
     background-color: #0056b3;
-}
+} */ 
 .info-box {
     align-items: center;
     padding: 20px;
