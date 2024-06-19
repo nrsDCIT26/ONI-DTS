@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Rules\CurrentPassword;
 use App\Tag;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -37,6 +38,8 @@ class HomeController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+        
         $documents = Document::all();
         
         // Fetch activities with filters
@@ -56,11 +59,40 @@ class HomeController extends AppBaseController
         $allDocs = Document::whereHas('tags', function ($q) use ($allTags) {
             return $q->whereIn('tag_id', $allTags->pluck('id')->toArray());
         })->pluck('id');
-        $documentCounts = $allDocs->count();
-        $filesCounts = File::whereIn('document_id', $allDocs->toArray())->count();
+
+        if ($user) {
+            if (auth()->user()->is_super_admin) {
+                // If user is a super admin, count all documents
+                $documentCounts = Document::whereHas('tags', function ($q) use ($allTags) {
+                    $q->whereIn('tag_id', $allTags->pluck('id')->toArray());
+                })->count();
+                
+                // Count all related files
+                $filesCounts = File::whereIn('document_id', $allDocs->toArray())->count();
+            } else {
+                // Count documents associated with the currently logged-in user
+                $documentCounts = Document::where('created_by', $user->id)
+                    ->whereHas('tags', function ($q) use ($allTags) {
+                        $q->whereIn('tag_id', $allTags->pluck('id')->toArray());
+                    })->count();
         
+                // Count files related to the documents owned by the user
+                $userDocs = Document::where('created_by', $user->id)
+                    ->whereHas('tags', function ($q) use ($allTags) {
+                        $q->whereIn('tag_id', $allTags->pluck('id')->toArray());
+                    })->pluck('id');
+                    
+                $filesCounts = File::whereIn('document_id', $userDocs->toArray())->count();
+            }
+        } else {
+            // Handle case where user is not logged in
+            $documentCounts = 0;
+            $filesCounts = 0;
+        }
+
         // Fetch monthly activities count
         $monthlyActivities = Activity::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                                    ->where('created_by', $user->id)
                                     ->whereYear('created_at', date('Y'))
                                     ->groupBy('month')
                                     ->get();
@@ -86,11 +118,12 @@ class HomeController extends AppBaseController
         });
     
         // Fetch uploaded documents grouped by month
-        $uploadedDocuments = Document::whereYear('created_at', date('Y'))
-                                    ->get()
-                                    ->groupBy(function ($date) {
-                                        return Carbon::parse($date->created_at)->format('m');
-                                    });
+        $uploadedDocuments = Document::where('created_by', $user->id)
+                            ->whereYear('created_at', date('Y'))
+                            ->get()
+                            ->groupBy(function ($date) {
+                                return Carbon::parse($date->created_at)->format('m');
+                            });
     
         // Initialize uploaded documents data with all months
         $uploadedDocumentsData = [];
