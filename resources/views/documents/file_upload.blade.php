@@ -214,6 +214,7 @@
                             <option value="">Document Type</option>
                             <option value="leave">Leave Request</option>
                             <option value="purchase">Purchase Request</option>
+                            <option value="test">Test</option>
                         </select>
                         </div>
                         </div>
@@ -223,7 +224,9 @@
                                 <iframe src="https://docs.google.com/document/d/1-vboZ7D-YXgJA2MQCwQiAnoOgb_An1PZzj3ML3oLvpU/edit?embedded=true" id="leaveRequest" class="request-frame" style="display:none; border: 1px solid #ccc;;"></iframe>
                                 <!-- Purchase Request Frame -->
                                 <iframe src="https://docs.google.com/document/d/1uEI7HfI8VNqBzFQectGB5zZUfpUSNIuVP08LmESgXM4/edit?embedded=true" id="purchaseRequest" class="request-frame" style="display:none; border: 1px solid #ccc;"></iframe>
+                                <iframe src="https://docs.google.com/document/d/15McmpRlbXbQ9KsF_Oq1q72BMTymRHs_1iPW3NBe2c9E/edit?embedded=true" id="testFile" class="request-frame" style="display:none; border: 1px solid #ccc;"></iframe>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -234,16 +237,20 @@
             var requestType = document.getElementById("requestType").value;
             var leaveRequestIframe = document.getElementById("leaveRequest");
             var purchaseRequestIframe = document.getElementById("purchaseRequest");
+            var testIFrame = document.getElementById("testFile");
 
             // Hide both iframes initially
             leaveRequestIframe.style.display = "none";
             purchaseRequestIframe.style.display = "none";
+            testIFrame.style.display = "none";
 
             // Show the corresponding iframe based on the selected value
             if (requestType === "leave") {
                 leaveRequestIframe.style.display = "block";
             } else if (requestType === "purchase") {
                 purchaseRequestIframe.style.display = "block";
+            } else if (requestType === "test") {
+                testIFrame.style.display = "block";
             }
         }
     </script>
