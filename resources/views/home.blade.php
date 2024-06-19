@@ -139,17 +139,15 @@
                                     <span style="background-color:#E34234; color:#fff">{{ formatDate(optional($activities->first())->created_at,'d M Y') }}</span>
                                 </li>
                                 @foreach ($activities as $activity)
-                                    @can('viewAny', $activity->document)
-                                        @if(auth()->user() && $document->created_by === auth()->user()->id)
-                                            <li>
-                                                <i class="fa fa-solid" data-toggle="tooltip" title="{{ $activity->createdBy->name }}"></i>
-                                                <div class="timeline-item">
-                                                    <span class="time" data-toggle="tooltip" title="{{ formatDateTime($activity->created_at) }}"><i class="fa fa-solid"></i> {{ \Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</span>
-                                                    <h4 class="timeline-header no-border">{!! $activity->activity !!}</h4>
-                                                </div>
-                                            </li>
-                                        @endif
-                                    @endcan
+                                    @if (auth()->user() && $activity->document && $activity->document->created_by === auth()->user()->id)
+                                        <li>
+                                            <i class="fa fa-solid" data-toggle="tooltip" title="{{ $activity->createdBy->name }}"></i>
+                                            <div class="timeline-item">
+                                                <span class="time" data-toggle="tooltip" title="{{ formatDateTime($activity->created_at) }}"><i class="fa fa-solid"></i> {{ \Carbon\Carbon::parse($activity->created_at)->diffForHumans() }}</span>
+                                                <h4 class="timeline-header no-border">{!! $activity->activity !!}</h4>
+                                            </div>
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
                             <div class="text-center">
